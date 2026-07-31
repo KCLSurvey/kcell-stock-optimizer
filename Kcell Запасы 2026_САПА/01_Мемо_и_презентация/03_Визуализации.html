@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>«Сквозной учёт» — визуализации к мемо</title>
+<style>
+  :root{
+    --ink:#12171f; --muted:#5d6b7f; --line:#d8dee8; --bg:#fff;
+    --a:#1f5fd6; --b:#0e9f6e; --c:#d97706; --d:#b02a37; --p:#6d43c8; --soft:#f4f7fb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:40px 32px;font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+  .wrap{max-width:1120px;margin:0 auto}
+  h1{font-size:26px;margin:0 0 4px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:36px}
+  section{margin:0 0 52px;page-break-inside:avoid}
+  h2{font-size:17px;margin:0 0 4px;letter-spacing:-.01em}
+  .cap{color:var(--muted);font-size:13px;margin:0 0 18px}
+  svg{width:100%;height:auto;display:block}
+  .card{border:1px solid var(--line);border-radius:12px;padding:20px;background:var(--bg)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:var(--soft);font-weight:600}
+  .quote{border-left:3px solid var(--a);padding:12px 16px;background:var(--soft);border-radius:0 8px 8px 0;font-size:14px;margin:16px 0}
+  .foot{color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px;margin-top:40px}
+  .no{color:var(--d);font-weight:600}
+  .yes{color:var(--b);font-weight:600}
+  @media print{body{padding:0}section{margin-bottom:34px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>«Сквозной учёт» — визуальные материалы</h1>
+<p class="sub">Приложение к инвестиционному мемо · версия 2.1 · 25.07.2026 · Контроль исполнения капитальных вложений: от одобрения бюджета до основного средства</p>
+
+<!-- 1. THREE CONTOURS -->
+<section>
+  <h2>1. Три контура: где физически находятся деньги</h2>
+  <p class="cap">Актив в любой момент времени в одном из трёх мест. Раскладываем по местам, потому что так устроена реальность оператора и так это видит финансовый директор.</p>
+
+  <div class="card" style="margin-bottom:18px">
+    <p style="margin:0 0 12px;font-size:14px"><b>Две шкалы, которые нельзя путать.</b> Первая — сколько денег лежит в контуре. Вторая — как быстро контур можно сделать прозрачным. Они устроены противоположно: <b>где больше всего денег, там дольше всего наводить порядок</b>.</p>
+    <table>
+      <tr><th style="width:250px">Контур</th><th style="width:190px">Сколько денег <i>(оценка)</i></th><th style="width:200px">Срок до прозрачности</th><th>Что даёт продукт</th></tr>
+      <tr style="background:#f2f7ff"><td><b>Склад оператора</b></td><td>15–20%</td><td class="yes">Недели</td><td>Высвобождение оборотного капитала, отмена избыточных закупок, выявление неликвидов</td></tr>
+      <tr style="background:#fff8ec"><td><b>Склад подрядчика</b></td><td>15–20% по учёту,<br>физически меньше</td><td style="color:#d97706;font-weight:600">Недели, затем месяцы</td><td>Предотвращение утраты материала, корректная картина остатков для планирования</td></tr>
+      <tr style="background:#f0faf5"><td><b>Площадка — активное оборудование</b></td><td>часть от 60–70%</td><td class="yes">Недели — <b>быстрая победа</b></td><td>Сверка с сетевой системой без единого выезда: сеть сама сообщает, что работает</td></tr>
+      <tr style="background:#f0faf5"><td><b>Площадка — пассивное оборудование</b></td><td><b>основная часть от 60–70%</b></td><td class="no">Месяцы и годы</td><td>База расчёта будущей потребности, расчёт возвратного фонда при демонтаже</td></tr>
+    </table>
+    <p class="cap" style="margin:14px 0 0"><b>Оговорка о базе сравнения.</b> Если считать весь установленный парк оператора, доля площадки становится подавляющей: это накопление многих лет вложений против нескольких месяцев складского оборота. Приведённые доли относятся к периметру продукта — оборудование текущего инвестиционного цикла плюс складские запасы. Точные доли замеряются в фазе 0.</p>
+    <p class="cap" style="margin:10px 0 0"><b>Практический вывод.</b> Начинаем с двух быстрых побед одновременно: сверка складов между финансовой и складской системами и сверка активного оборудования площадок с сетью. Пассивная инфраструктура — самая дорогая и самая долгая — идёт последней. Иначе год нечем защищать проект перед спонсором.</p>
+  </div>
+  <div class="card">
+  <svg viewBox="0 0 1040 460" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,Segoe UI,Roboto,Arial" font-size="12">
+    <defs>
+      <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3.2" orient="auto">
+        <path d="M0,0 L7,3.2 L0,6.4 Z" fill="#5d6b7f"/>
+      </marker>
+      <marker id="arg" markerWidth="9" markerHeight="9" refX="7" refY="3.2" orient="auto">
+        <path d="M0,0 L7,3.2 L0,6.4 Z" fill="#0e9f6e"/>
+      </marker>
+    </defs>
+
+    <!-- approval -->
+    <rect x="20" y="24" width="170" height="52" rx="8" fill="#12171f"/>
+    <text x="105" y="46" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">ОДОБРЕН БЮДЖЕТ</text>
+    <text x="105" y="63" text-anchor="middle" fill="#c3ccda" font-size="11">чужая зона — не строим</text>
+    <line x1="192" y1="50" x2="212" y2="50" stroke="#5d6b7f" stroke-width="2" marker-end="url(#ar)"/>
+
+    <!-- contour 1: warehouse -->
+    <rect x="216" y="24" width="256" height="176" rx="10" fill="#f2f7ff" stroke="#1f5fd6" stroke-width="1.6"/>
+    <text x="234" y="48" fill="#1f5fd6" font-weight="700" font-size="13">КОНТУР СКЛАДА ОПЕРАТОРА</text>
+    <rect x="234" y="58" width="76" height="22" rx="11" fill="#1f5fd6"/>
+    <text x="272" y="73" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">15–20%</text>
+    <text x="318" y="73" fill="#5d6b7f" font-size="11">денег · прозрачность за недели</text>
+    <text x="234" y="102" font-size="11.5">Приёмка · нанесение метки · хранение</text>
+    <text x="234" y="119" font-size="11.5">транзит между складами · выдача</text>
+    <text x="234" y="146" font-size="11.5" fill="#b02a37" font-weight="600">Потери:</text>
+    <text x="234" y="163" font-size="11.5" fill="#5d6b7f">закупается то, что уже есть;</text>
+    <text x="234" y="180" font-size="11.5" fill="#5d6b7f">неликвиды копятся без резерва</text>
+
+    <!-- contour 2: contractor -->
+    <rect x="486" y="24" width="256" height="176" rx="10" fill="#fff8ec" stroke="#d97706" stroke-width="1.6"/>
+    <text x="504" y="48" fill="#d97706" font-weight="700" font-size="13">КОНТУР ПОДРЯДЧИКА</text>
+    <rect x="504" y="58" width="76" height="22" rx="11" fill="#d97706"/>
+    <text x="542" y="73" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">15–20%</text>
+    <text x="588" y="73" fill="#5d6b7f" font-size="11">денег · недели, затем месяцы</text>
+    <text x="504" y="102" font-size="11.5">Выдано монтажной организации,</text>
+    <text x="504" y="119" font-size="11.5">ещё не смонтировано</text>
+    <text x="504" y="146" font-size="11.5" fill="#b02a37" font-weight="600">Потери:</text>
+    <text x="504" y="163" font-size="11.5" fill="#5d6b7f">юридически ваше, физически не у вас;</text>
+    <text x="504" y="180" font-size="11.5" fill="#5d6b7f">числится больше, чем лежит</text>
+
+    <!-- contour 3: site -->
+    <rect x="756" y="24" width="264" height="176" rx="10" fill="#f0faf5" stroke="#0e9f6e" stroke-width="1.6"/>
+    <text x="774" y="48" fill="#0e9f6e" font-weight="700" font-size="13">КОНТУР ПЛОЩАДКИ</text>
+    <rect x="774" y="58" width="76" height="22" rx="11" fill="#0e9f6e"/>
+    <text x="812" y="73" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">60–70%</text>
+    <text x="858" y="73" fill="#5d6b7f" font-size="11">денег · активное быстро,</text>
+    <text x="858" y="88" fill="#5d6b7f" font-size="11">пассивное долго</text>
+    <text x="774" y="102" font-size="11.5">Смонтировано · включено в работу ·</text>
+    <text x="774" y="119" font-size="11.5">принято · эксплуатация · демонтаж</text>
+    <text x="774" y="146" font-size="11.5" fill="#b02a37" font-weight="600">Потери:</text>
+    <text x="774" y="163" font-size="11.5" fill="#5d6b7f">работает в сети, но числится в НЗС;</text>
+    <text x="774" y="180" font-size="11.5" fill="#5d6b7f">демонтаж не доезжает до склада</text>
+
+    <line x1="474" y1="112" x2="484" y2="112" stroke="#5d6b7f" stroke-width="2" marker-end="url(#ar)"/>
+    <line x1="744" y1="112" x2="754" y2="112" stroke="#5d6b7f" stroke-width="2" marker-end="url(#ar)"/>
+
+    <!-- return loop -->
+    <path d="M 888 202 C 888 244, 600 262, 344 240 C 300 236, 290 220, 290 204"
+          fill="none" stroke="#0e9f6e" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#arg)"/>
+    <rect x="470" y="234" width="290" height="30" rx="15" fill="#0e9f6e"/>
+    <text x="615" y="253" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">возврат уменьшает будущую закупку</text>
+
+    <!-- accounting recognition -->
+    <rect x="20" y="288" width="1000" height="66" rx="10" fill="#f6f2ff" stroke="#6d43c8" stroke-width="1.6"/>
+    <text x="40" y="312" fill="#6d43c8" font-weight="700" font-size="13">СКВОЗНОЙ КОНТРОЛЬ УЧЁТНОГО ПРИЗНАНИЯ (проходит через все три контура)</text>
+    <text x="40" y="332" font-size="11.5">Запасы → запасы у подрядчика → незавершённое строительство → <tspan font-weight="700">основные средства</tspan></text>
+    <text x="40" y="349" font-size="11.5" fill="#6d43c8" font-weight="600">Ключевая точка: дата включения в работу из сетевой системы = доказательство готовности к использованию (IAS 16)</text>
+
+    <!-- sources -->
+    <rect x="20" y="370" width="1000" height="70" rx="10" fill="#f4f7fb" stroke="#d8dee8"/>
+    <text x="40" y="392" fill="#5d6b7f" font-size="12" font-weight="700">СИСТЕМЫ-ИСТОЧНИКИ (не заменяем — читаем и сводим)</text>
+    <g font-size="11" fill="#12171f">
+      <rect x="40" y="400" width="176" height="26" rx="5" fill="#fff" stroke="#d8dee8"/><text x="128" y="417" text-anchor="middle">Финансовая система (деньги)</text>
+      <rect x="228" y="400" width="196" height="26" rx="5" fill="#fff" stroke="#0e9f6e" stroke-width="1.6"/><text x="326" y="417" text-anchor="middle" font-weight="700">Сетевая система (доказательство)</text>
+      <rect x="436" y="400" width="150" height="26" rx="5" fill="#fff" stroke="#d8dee8"/><text x="511" y="417" text-anchor="middle">Складская система</text>
+      <rect x="598" y="400" width="180" height="26" rx="5" fill="#fff" stroke="#d8dee8"/><text x="688" y="417" text-anchor="middle">Справочник номенклатуры</text>
+      <rect x="790" y="400" width="190" height="26" rx="5" fill="#fff" stroke="#d8dee8"/><text x="885" y="417" text-anchor="middle">Приложение подрядчика</text>
+    </g>
+  </svg>
+  </div>
+</section>
+
+<!-- 2. CAPITALIZATION -->
+<section>
+  <h2>2. Точка капитализации — самый сильный аргумент для финансового директора</h2>
+  <p class="cap">Это не про логистику. Это про корректность финансовой отчётности и про аудиторскую находку, которую продукт закрывает.</p>
+  <div class="card">
+  <svg viewBox="0 0 1040 280" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,Segoe UI,Roboto,Arial" font-size="12">
+    <!-- timeline -->
+    <line x1="40" y1="120" x2="1000" y2="120" stroke="#d8dee8" stroke-width="2"/>
+
+    <circle cx="120" cy="120" r="7" fill="#5d6b7f"/>
+    <text x="120" y="100" text-anchor="middle" font-size="11.5">Монтаж завершён</text>
+
+    <circle cx="400" cy="120" r="9" fill="#0e9f6e"/>
+    <text x="400" y="96" text-anchor="middle" font-size="12" font-weight="700" fill="#0e9f6e">Включено в работу</text>
+    <text x="400" y="80" text-anchor="middle" font-size="11" fill="#5d6b7f">сектор поднят, идёт трафик</text>
+    <text x="400" y="146" text-anchor="middle" font-size="11" fill="#0e9f6e">факт из сетевой системы</text>
+    <text x="400" y="162" text-anchor="middle" font-size="11" fill="#0e9f6e">машинный, не фальсифицируемый</text>
+
+    <circle cx="820" cy="120" r="9" fill="#b02a37"/>
+    <text x="820" y="96" text-anchor="middle" font-size="12" font-weight="700" fill="#b02a37">Введено в основные средства</text>
+    <text x="820" y="146" text-anchor="middle" font-size="11" fill="#5d6b7f">подписан акт приёмки</text>
+
+    <!-- gap -->
+    <rect x="400" y="112" width="420" height="16" fill="#fde8e8"/>
+    <path d="M 400 190 L 400 175 M 820 190 L 820 175" stroke="#b02a37" stroke-width="1.4"/>
+    <line x1="400" y1="182" x2="820" y2="182" stroke="#b02a37" stroke-width="1.4"/>
+    <rect x="500" y="170" width="220" height="24" rx="12" fill="#b02a37"/>
+    <text x="610" y="187" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">РАЗРЫВ — недели и месяцы</text>
+
+    <text x="40" y="228" font-size="12" font-weight="700" fill="#b02a37">Что происходит в разрыве:</text>
+    <text x="40" y="248" font-size="11.5" fill="#12171f">амортизация не начислена → прибыль завышена · незавершённое строительство завышено в балансе ·</text>
+    <text x="40" y="265" font-size="11.5" fill="#12171f">налоговая экспозиция · аудиторская находка, если разрыв систематический и материальный</text>
+
+    <text x="620" y="228" font-size="12" font-weight="700" fill="#0e9f6e">Что даёт продукт:</text>
+    <text x="620" y="248" font-size="11.5" fill="#12171f">объективную дату готовности к использованию,</text>
+    <text x="620" y="265" font-size="11.5" fill="#12171f">независимую от документооборота подрядчика</text>
+  </svg>
+  </div>
+  <div class="quote">
+    <b>IAS 16:</b> капитализация затрат прекращается, когда актив становится доступен для использования по назначению, определённому руководством. Актив, полностью установленный и протестированный, подлежит амортизации, даже если простаивает в ожидании операционной готовности.<br><br>
+    <b>Следствие:</b> если сектор поднят и несёт трафик, аргумент «актив ещё не готов» трудно защитим — сеть уже использует актив по назначению.
+  </div>
+</section>
+
+<!-- 3. FOUR GAPS -->
+<section>
+  <h2>3. Пять разрывов, которые порождают потери</h2>
+  <table>
+    <tr><th style="width:230px">Код и название</th><th>Что происходит</th><th style="width:180px">Кто теряет</th></tr>
+    <tr>
+      <td><b>Р1 — разрыв потребности</b><br><span style="color:#5d6b7f">потребность не равна закупке</span></td>
+      <td>Заявка формируется от плана строительства, а не от анализа «что уже есть на складах и что вернётся с демонтажа». Планировщик физически не видит свободный запас</td>
+      <td>Финансы, закупки</td>
+    </tr>
+    <tr>
+      <td><b>Р2 — разрыв идентичности</b><br><span style="color:#5d6b7f">строка учёта не равна железке</span></td>
+      <td>В финансовой системе записано «10 штук позиции 4711». На складе лежат 10 конкретных железок. Однозначного соответствия между строкой и железками нет</td>
+      <td><b>Все. Это корень остального</b></td>
+    </tr>
+    <tr>
+      <td><b>Р3 — разрыв владения</b><br><span style="color:#5d6b7f">собственность не равна обладанию</span></td>
+      <td>Материал выдан подрядчику. Юридически он ваш, физически не у вас, а в расчёте потребности его вообще нет: учётная система по устройству не считает его доступным запасом</td>
+      <td>Финансы, закупки</td>
+    </tr>
+    <tr style="background:#fff8ec">
+      <td><b>Р4 — разрыв документа и факта</b><br><span style="color:#5d6b7f">учётное место не равно физическому</span></td>
+      <td>Оборудование числится на складе подрядчика, а физически уже стоит на площадке или работает в сети. Документы отстают от работ на недели и месяцы. <b>Планировщик видит остаток, которого нет</b></td>
+      <td>Планирование, закупки</td>
+    </tr>
+    <tr style="background:#f6f2ff">
+      <td><b>Р5 — разрыв признания</b><br><span style="color:#5d6b7f">работа в сети не равна учёту</span></td>
+      <td>Оборудование месяцами несёт трафик, оставаясь в незавершённом строительстве. Амортизация не начислена, прибыль завышена</td>
+      <td>Бухгалтерия, аудит, налоги</td>
+    </tr>
+  </table>
+  <div class="quote">
+    <b>Почему Р4 не лечится дисциплиной.</b> Документооборот подрядчика физически отстаёт от работ: акт подписывается после приёмки, приёмка — после комиссии, комиссия — после накопления объёма. Требовать «сдавать документы вовремя» бессмысленно, потому что вовремя означает раньше, чем это возможно по процессу.<br><br>
+    <b>Продукт не ускоряет документы.</b> Он разделяет два местонахождения — учётное и фактическое — и показывает разрыв между ними как измеримую величину. Как именно получается фактическое — в разделе 5.
+  </div>
+</section>
+
+<!-- 5. DOCUMENT LAG MECHANISMS -->
+<section>
+  <h2>4. Как узнать фактическое местонахождение, когда документы отстают</h2>
+  <p class="cap">Два механизма, дающие фактическую картину без ускорения документооборота. Общий принцип: экземпляр имеет два местонахождения одновременно, и продукт показывает оба.</p>
+  <div class="card">
+  <svg viewBox="0 0 1040 380" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,Segoe UI,Roboto,Arial" font-size="12">
+    <defs>
+      <marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="3.2" orient="auto">
+        <path d="M0,0 L7,3.2 L0,6.4 Z" fill="#5d6b7f"/>
+      </marker>
+    </defs>
+
+    <!-- accounting track -->
+    <rect x="20" y="24" width="1000" height="86" rx="10" fill="#f4f7fb" stroke="#d8dee8"/>
+    <text x="38" y="46" font-weight="700" font-size="12" fill="#5d6b7f">УЧЁТНОЕ МЕСТОНАХОЖДЕНИЕ — что говорит финансовая система</text>
+    <rect x="38" y="56" width="640" height="38" rx="7" fill="#fff" stroke="#5d6b7f"/>
+    <text x="358" y="80" text-anchor="middle" font-size="12">Материал числится на складе подрядчика — всё это время</text>
+    <rect x="700" y="56" width="304" height="38" rx="7" fill="#fff" stroke="#5d6b7f"/>
+    <text x="852" y="80" text-anchor="middle" font-size="12">Документы сданы → перенос в учёте</text>
+    <line x1="682" y1="75" x2="696" y2="75" stroke="#5d6b7f" marker-end="url(#ar2)"/>
+
+    <!-- physical track -->
+    <rect x="20" y="126" width="1000" height="96" rx="10" fill="#f0faf5" stroke="#0e9f6e"/>
+    <text x="38" y="148" font-weight="700" font-size="12" fill="#0e9f6e">ФАКТИЧЕСКОЕ МЕСТОНАХОЖДЕНИЕ — что показали наблюдения</text>
+    <rect x="38" y="158" width="180" height="48" rx="7" fill="#fff" stroke="#0e9f6e"/>
+    <text x="128" y="178" text-anchor="middle" font-size="11.5">На складе</text>
+    <text x="128" y="194" text-anchor="middle" font-size="11.5">подрядчика</text>
+
+    <rect x="234" y="158" width="230" height="48" rx="7" fill="#fff" stroke="#0e9f6e" stroke-width="1.8"/>
+    <text x="349" y="178" text-anchor="middle" font-size="11.5" font-weight="600">Вывезено, на площадке,</text>
+    <text x="349" y="194" text-anchor="middle" font-size="11.5" font-weight="600">ожидает монтажа</text>
+
+    <rect x="480" y="158" width="230" height="48" rx="7" fill="#fff" stroke="#0e9f6e" stroke-width="1.8"/>
+    <text x="595" y="178" text-anchor="middle" font-size="11.5" font-weight="600">Смонтировано и работает,</text>
+    <text x="595" y="194" text-anchor="middle" font-size="11.5" font-weight="600">документы не сданы</text>
+
+    <rect x="726" y="158" width="278" height="48" rx="7" fill="#fff" stroke="#0e9f6e"/>
+    <text x="865" y="186" text-anchor="middle" font-size="11.5">Принято, введено в основные средства</text>
+
+    <line x1="220" y1="182" x2="232" y2="182" stroke="#5d6b7f" marker-end="url(#ar2)"/>
+    <line x1="466" y1="182" x2="478" y2="182" stroke="#5d6b7f" marker-end="url(#ar2)"/>
+    <line x1="712" y1="182" x2="724" y2="182" stroke="#5d6b7f" marker-end="url(#ar2)"/>
+
+    <!-- gap -->
+    <path d="M 349 152 L 349 100 M 595 152 L 595 100" stroke="#b02a37" stroke-width="1.4" stroke-dasharray="4 3"/>
+    <rect x="360" y="232" width="330" height="28" rx="14" fill="#b02a37"/>
+    <text x="525" y="251" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">ЛАГ ДОКУМЕНТОВ — измеримая величина</text>
+
+    <!-- mechanisms -->
+    <rect x="20" y="278" width="490" height="88" rx="10" fill="#f2f7ff" stroke="#1f5fd6"/>
+    <text x="38" y="300" font-weight="700" fill="#1f5fd6" font-size="12">МЕХАНИЗМ 1 · Заказ на работу с материальным листом</text>
+    <text x="38" y="320" font-size="11.5">Бригада выбирает номер заказа → система подтягивает</text>
+    <text x="38" y="336" font-size="11.5">перечень оборудования → фото выгрузки с геопривязкой</text>
+    <text x="38" y="356" font-size="11" fill="#1f5fd6">Работает для активного и пассивного оборудования</text>
+
+    <rect x="530" y="278" width="490" height="88" rx="10" fill="#f0faf5" stroke="#0e9f6e"/>
+    <text x="548" y="300" font-weight="700" fill="#0e9f6e" font-size="12">МЕХАНИЗМ 2 · Сигнал о включении в работу из сети</text>
+    <text x="548" y="320" font-size="11.5">Оборудование поднялось и несёт трафик → система сама</text>
+    <text x="548" y="336" font-size="11.5">помечает позиции как смонтированные</text>
+    <text x="548" y="356" font-size="11" fill="#0e9f6e" font-weight="600">Без выезда, без фото, без участия подрядчика</text>
+  </svg>
+  </div>
+  <div class="quote">
+    <b>Что даёт лаг документов как показатель.</b> Для планирования — поправку к остаткам, числящимся за подрядчиками: часть этого материала физически уже в сети. Для бухгалтерии — оценку суммы, подлежащей переводу в основные средства. Для работы с подрядчиками — объективный критерий дисциплины, который можно включить в договор.<br><br>
+    <b>Ограничение механизма 2.</b> Пассивные элементы в сети не видны. Для них остаётся механизм 1, а на поздней фазе — распознавание оборудования на фотографиях площадки. Это и есть причина, по которой пассивная инфраструктура остаётся самой долгой частью проекта.
+  </div>
+</section>
+
+<!-- 5. CONTRACTOR EQUATION -->
+<section>
+  <h2>5. Контур подрядчика: уравнение сверки</h2>
+  <p class="cap">Ядро контроля контура подрядчика. Без финансового последствия механизм не работает.</p>
+  <div class="card">
+  <svg viewBox="0 0 1040 250" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,Segoe UI,Roboto,Arial" font-size="12">
+    <rect x="20" y="30" width="180" height="60" rx="8" fill="#d97706"/>
+    <text x="110" y="56" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">ВЫДАНО</text>
+    <text x="110" y="74" text-anchor="middle" fill="#fff" font-size="12">подрядчику</text>
+    <text x="215" y="66" font-size="22" fill="#12171f">=</text>
+
+    <rect x="245" y="30" width="146" height="60" rx="8" fill="#fff" stroke="#0e9f6e" stroke-width="1.6"/>
+    <text x="318" y="54" text-anchor="middle" font-size="12" font-weight="600">Смонтировано</text>
+    <text x="318" y="72" text-anchor="middle" font-size="11" fill="#5d6b7f">подтверждено</text>
+    <text x="400" y="66" font-size="18" fill="#5d6b7f">+</text>
+
+    <rect x="418" y="30" width="146" height="60" rx="8" fill="#fff" stroke="#1f5fd6" stroke-width="1.6"/>
+    <text x="491" y="54" text-anchor="middle" font-size="12" font-weight="600">Возвращено</text>
+    <text x="491" y="72" text-anchor="middle" font-size="11" fill="#5d6b7f">на склад</text>
+    <text x="573" y="66" font-size="18" fill="#5d6b7f">+</text>
+
+    <rect x="591" y="30" width="146" height="60" rx="8" fill="#fff" stroke="#1f5fd6" stroke-width="1.6"/>
+    <text x="664" y="54" text-anchor="middle" font-size="12" font-weight="600">Остаток</text>
+    <text x="664" y="72" text-anchor="middle" font-size="11" fill="#5d6b7f">на площадке</text>
+    <text x="746" y="66" font-size="18" fill="#5d6b7f">+</text>
+
+    <rect x="764" y="30" width="120" height="60" rx="8" fill="#fff" stroke="#0e9f6e" stroke-width="1.6"/>
+    <text x="824" y="54" text-anchor="middle" font-size="12" font-weight="600">Демонтаж</text>
+    <text x="824" y="72" text-anchor="middle" font-size="11" fill="#5d6b7f">обратно</text>
+    <text x="893" y="66" font-size="18" fill="#5d6b7f">+</text>
+
+    <rect x="911" y="30" width="109" height="60" rx="8" fill="#fde8e8" stroke="#b02a37" stroke-width="1.6"/>
+    <text x="965" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#b02a37">Расхожде-</text>
+    <text x="965" y="72" text-anchor="middle" font-size="12" font-weight="700" fill="#b02a37">ние</text>
+
+    <rect x="20" y="118" width="1000" height="44" rx="8" fill="#b02a37"/>
+    <text x="40" y="146" fill="#fff" font-size="13" font-weight="700">ПРАВИЛО: расхождение выше допуска — блокировка следующей выдачи и удержание из акта до разбора</text>
+
+    <text x="20" y="192" font-size="12" font-weight="700">Что должно появиться в договоре с подрядчиком, иначе продукт не имеет опоры:</text>
+    <text x="20" y="212" font-size="11.5" fill="#5d6b7f">1. Форма и сроки отчёта о материалах · 2. Учёт по серийным номерам для серийных классов · 3. Право на внезапную инвентаризацию</text>
+    <text x="20" y="230" font-size="11.5" fill="#5d6b7f">4. Фотофиксация на контрольных точках как условие приёмки · 5. Удержание за неподтверждённый материал · 6. Нормативы допустимых потерь</text>
+  </svg>
+  </div>
+  <div class="quote">
+    Технология без изменения договора эффекта не даст. Изменение договора без технологии даст частичный эффект. <b>Вместе — полный.</b>
+  </div>
+</section>
+
+<!-- 6. TWO WAVES -->
+<section>
+  <h2>6. Состав продукта: две волны, а не два варианта</h2>
+  <p class="cap">Продукт строится не выбором между узким и широким составом, а последовательностью от быстро внедряемого к долго внедряемому. Волна 1 — ядро, без которого остальное не работает. Волна 2 — расширения, которые имеет смысл делать только после того, как ядро подтвердило работоспособность на реальных данных.</p>
+
+  <h3 style="font-size:14px;margin:18px 0 8px">Волна 1 — ядро</h3>
+  <table>
+    <tr><th style="width:120px">Элемент</th><th style="width:320px">Название</th><th>Что делает</th></tr>
+    <tr><td>⇥ Вход</td><td>Приём одобренного инвестплана</td><td>Принимаем утверждённый план из любого источника. Само планирование инвестиций <b>не строим</b></td></tr>
+    <tr><td>Модуль 1</td><td><b>Шлюз покрытия потребности</b></td><td>Проверяет потребность на покрытие складом, возвратным фондом и перераспределением. В закупку идёт только непокрытый остаток. <b>Главный продукт</b></td></tr>
+    <tr><td>Модуль 2</td><td><b>Жизненный цикл и владение активом</b></td><td>Паспорт экземпляра, событийная лента, три контура, двойное местонахождение, обратная логистика</td></tr>
+    <tr><td>Модуль 3</td><td><b>Контроль развёртывания и включения в работу</b></td><td>Приложение подрядчика, заказы на работу с материальными листами, фотопротокол, интеграция с сетью</td></tr>
+    <tr><td>Модуль 4</td><td><b>Контроль учётного признания</b></td><td>Разрыв между работой в сети и признанием в основных средствах, триггеры капитализации, резервы</td></tr>
+    <tr><td>⇤ Выход</td><td>Выдача факта</td><td>Фактическая стоимость и фактическое время назад в планирование. <b>Выручку не отдаём</b></td></tr>
+  </table>
+
+  <h3 style="font-size:14px;margin:22px 0 8px">Очерёдность внутри волны 1: быстрые, средние и долгие победы</h3>
+  <table>
+    <tr><th style="width:150px">Очередь</th><th style="width:110px">Срок</th><th style="width:330px">Что делаем</th><th>Почему именно это</th></tr>
+    <tr style="background:#f0faf5">
+      <td><b class="yes">Быстрые победы</b></td><td>1–3 месяца</td>
+      <td>Сверка складов оператора и подрядчика между финансовой и складской системами · Сверка активного оборудования площадок с сетью · Отчёт о разрыве между работой в сети и признанием в учёте</td>
+      <td>Данные уже существуют, нужна только сверка. Результат в деньгах без выездов и без полевых функций</td>
+    </tr>
+    <tr style="background:#f2f7ff">
+      <td><b>Средние победы</b></td><td>3–9 месяцев</td>
+      <td>Мобильное приложение подрядчика · Заказы на работу и материальные листы · Уравнение сверки подрядчика · Шлюз покрытия потребности</td>
+      <td>Требуют полевого внедрения и изменения договоров. Дают наибольший эффект на единицу усилий</td>
+    </tr>
+    <tr style="background:#fff8ec">
+      <td><b>Долгие победы</b></td><td>9–18 месяцев</td>
+      <td>Пассивная инфраструктура площадок · Обратная логистика и контур демонтажа · Полный контур учётного признания</td>
+      <td>Требуют выездов, кампании маркировки и накопления данных. Самая крупная часть по деньгам, самая медленная по срокам</td>
+    </tr>
+  </table>
+  <div class="quote" style="border-left-color:#d97706">
+    <b>Ошибка, которой это устройство помогает избежать.</b> Соблазн начать с самого дорогого контура — площадок — понятен: там лежит основная сумма. Но пассивная инфраструктура не даёт результата раньше чем через год, и весь этот год проект нечем защищать перед спонсором. <b>Быстрые победы дают результат за квартал и покупают время для долгих.</b>
+  </div>
+
+  <h3 style="font-size:14px;margin:22px 0 8px">Волна 2 — расширения после подтверждения ядра</h3>
+  <table>
+    <tr><th style="width:130px">Элемент</th><th style="width:320px">Название</th><th>Когда имеет смысл</th></tr>
+    <tr><td>Расширение 1</td><td><b>Оптимизация страхового запаса</b></td><td>После того, как данные о наличии стали достоверными. На грязных данных оптимизация даёт красивый и неверный результат</td></tr>
+    <tr><td>Расширение 2</td><td><b>Обратная логистика самостоятельным модулем</b></td><td>После того, как контур площадок стал прозрачным и известно, что и когда демонтируется</td></tr>
+    <tr><td>Расширение 3</td><td><b>Единый экран как отдельный продукт</b></td><td>После того, как накоплены данные, которые есть смысл разрезать по-разному</td></tr>
+    <tr style="background:#fde8e8"><td>Расширение 4</td><td><b>Планировщик капитальных вложений</b></td><td class="no">Не рекомендуется даже во второй волне: прямая конкуренция с Infovista и Riaktr на их данных и их компетенции</td></tr>
+  </table>
+  <p class="cap" style="margin-top:12px"><b>Пояснение по расширению 1.</b> Оптимизация страхового запаса — не то же самое, что норматив «штук на площадку», который входит в ядро. Норматив отвечает на вопрос строительства: сколько нужно, чтобы построить площадку. Страховой запас отвечает на вопрос эксплуатации: сколько держать, чтобы уложиться в обязательства по времени восстановления при отказе. Разные задачи, разные данные, разные заказчики внутри оператора.</p>
+  <div class="quote">
+    <b>Аргумент против входа в планирование инвестиций.</b> Riaktr — двенадцать лет на рынке, два продукта, клиенты Orange, Proximus, MTN — продана целиком за <b>10,4 млн евро</b>. Это оценка всего бизнеса. Рынок автономных платформ планирования мал и консолидирован; заходить в него отдельным модулем стратегически бессмысленно.
+  </div>
+</section>
+
+<!-- 7. CLASSES -->
+<section>
+  <h2>7. Классы номенклатуры: единый метод для всего не работает</h2>
+  <p class="cap">Классификация делается до архитектуры. Попытка дать серийную прослеживаемость кабелю топит проект.</p>
+  <table>
+    <tr><th style="width:220px">Класс</th><th style="width:220px">Примеры</th><th style="width:110px">Виден в сети</th><th>Метод прослеживания</th><th style="width:150px">В первой версии</th></tr>
+    <tr style="background:#f0faf5">
+      <td><b>Класс А</b><br>активное серийное</td><td>Базовые блоки, радиомодули, маршрутизаторы, коммутаторы</td>
+      <td class="yes">Да</td><td>Серийник и <b>автосверка с сетевой системой</b> — без выезда и без затрат</td><td class="yes">Да, первый</td>
+    </tr>
+    <tr style="background:#f2f7ff">
+      <td><b>Класс Б</b><br>пассивное серийное</td><td>Антенны, шкафы, выпрямители, батареи</td>
+      <td>Нет</td><td>Серийник, метка на приёмке и фотоподтверждение</td><td class="yes">Да, второй</td>
+    </tr>
+    <tr>
+      <td><b>Класс В</b><br>пассивное несерийное штучное</td><td>Кронштейны, грозозащита, джамперы</td>
+      <td>Нет</td><td>Партия и количество, подтверждение по комплекту</td><td class="no">Нет</td>
+    </tr>
+    <tr>
+      <td><b>Класс Г</b><br>расходное измеряемое</td><td>Фидер, кабель, крепёж, метизы</td>
+      <td>Нет</td><td>Норматив на площадку с допуском отклонения</td><td class="no">Не автоматизировать</td>
+    </tr>
+  </table>
+  <p class="cap" style="margin-top:14px"><b>Классы А и Б дают 80–90% стоимости при 10–20% позиций</b> <i>(оценка)</i>. Классы В и Г дают львиную долю строк и почти не дают денег.<br>
+  <b>Операционное правило, без которого всё разваливается:</b> метка наносится на приёмке на склад, сотрудником склада, до размещения. Не подрядчиком, не в поле, не задним числом. Если правило нарушается, идентичность экземпляра не создаётся и весь контур теряет смысл.</p>
+</section>
+
+<!-- 8. COMPUTER VISION -->
+<section>
+  <h2>8. Почему компьютерное зрение — не первый шаг</h2>
+  <table>
+    <tr><th style="width:330px">Задача</th><th style="width:150px">Выполнима камерой</th><th>Комментарий</th></tr>
+    <tr><td>«На фото есть антенна»</td><td class="yes">Да</td><td>Классификация объектов — зрелая задача</td></tr>
+    <tr><td>«Это антенна модели Х»</td><td class="yes">Скорее да</td><td>Требует обучения на вашем парке оборудования</td></tr>
+    <tr><td>«Смонтировано согласно проекту»</td><td class="yes">Да</td><td>Сравнение с шаблоном работает</td></tr>
+    <tr><td>«Работы выполнены качественно»</td><td style="color:#d97706;font-weight:600">Частично</td><td>Ограниченный набор проверяемых дефектов</td></tr>
+    <tr style="background:#fde8e8"><td><b>«Это конкретный экземпляр с серийником 4711»</b></td><td class="no">Нет</td><td><b>Только через распознавание читаемой таблички или скан метки</b></td></tr>
+    <tr style="background:#fde8e8"><td>«Всё оборудование на площадке учтено»</td><td class="no">Нет</td><td>Камера видит то, что попало в кадр, а не то, что есть на площадке</td></tr>
+  </table>
+  <div class="quote">
+    <b>Вывод, определяющий архитектуру.</b> Компьютерное зрение — инструмент <b>верификации и приёмки</b>, а не идентификации и учёта. Оно проверяет утверждение подрядчика, но не порождает учётную запись. Подключается после того, как построен реестр экземпляров, иначе результатам распознавания не с чем сверяться.<br><br>
+    <b>Про умные очки.</b> Батарея разряжается примерно за 2,5 часа при заявленных до 8; добавляются вопросы техники безопасности на высоте, обучение и сопротивление персонала. <b>Rakuten — компания с наибольшим опытом в этой области — использует смартфон, а не очки.</b> Это сильный сигнал при выборе форм-фактора.<br><br>
+    <b>Про состязательность данных.</b> Тот, кто носит камеру, — это тот, кого вы контролируете. Подрядчик управляет тем, что попадает в кадр, когда включается устройство и под каким углом. Работает не камера, а регламент: фиксация обязательна на определённых контрольных точках, с геометкой и временем, и без неё работа не принимается и не оплачивается.
+  </div>
+</section>
+
+<!-- 9. PHASES AND GATES -->
+<section>
+  <h2>9. Фазы и гейты: где проект останавливается осознанно</h2>
+  <p class="cap">Заранее определённые критерии остановки — признак зрелого управления. Их отсутствие — признак проекта, который будет «почти работать» вечно.</p>
+  <div class="card">
+  <svg viewBox="0 0 1040 320" xmlns="http://www.w3.org/2000/svg" font-family="-apple-system,Segoe UI,Roboto,Arial" font-size="12">
+    <line x1="30" y1="40" x2="1010" y2="40" stroke="#d8dee8" stroke-width="2"/>
+    <g font-size="11" fill="#5d6b7f">
+      <text x="30" y="28">0</text><text x="180" y="28">6 нед</text><text x="420" y="28">4–5 мес</text><text x="680" y="28">10–11 мес</text><text x="950" y="28">17+ мес</text>
+    </g>
+
+    <rect x="30" y="58" width="200" height="180" rx="10" fill="#fff8ec" stroke="#d97706"/>
+    <text x="46" y="82" font-weight="700" fill="#d97706">Фаза 0 · обследование</text>
+    <text x="46" y="100" font-size="11" fill="#5d6b7f">4–6 недель</text>
+    <text x="46" y="126" font-size="11.5">Шесть метрик базовой линии</text>
+    <text x="46" y="143" font-size="11.5">8–12 интервью</text>
+    <text x="46" y="160" font-size="11.5">Аудит доступности данных</text>
+    <text x="46" y="177" font-size="11.5">Классификация номенклатуры</text>
+    <text x="46" y="194" font-size="11.5">Четыре учётных решения</text>
+    <text x="46" y="211" font-size="11.5" font-weight="700">Права на разработку</text>
+
+    <rect x="246" y="58" width="200" height="180" rx="10" fill="#f2f7ff" stroke="#1f5fd6"/>
+    <text x="262" y="82" font-weight="700" fill="#1f5fd6">Фаза 1 · первая версия</text>
+    <text x="262" y="100" font-size="11" fill="#5d6b7f">12–16 недель</text>
+    <text x="262" y="126" font-size="11.5">1 проект строительства</text>
+    <text x="262" y="143" font-size="11.5">30–50 площадок</text>
+    <text x="262" y="160" font-size="11.5">2–3 подрядчика</text>
+    <text x="262" y="177" font-size="11.5">Топ-50 позиций, классы А и Б</text>
+    <text x="262" y="194" font-size="11.5">Шесть функций, не больше</text>
+
+    <rect x="462" y="58" width="200" height="180" rx="10" fill="#f0faf5" stroke="#0e9f6e"/>
+    <text x="478" y="82" font-weight="700" fill="#0e9f6e">Фаза 2 · масштабирование</text>
+    <text x="478" y="100" font-size="11" fill="#5d6b7f">4–6 месяцев</text>
+    <text x="478" y="126" font-size="11.5">Все проекты и подрядчики</text>
+    <text x="478" y="143" font-size="11.5">Полная интеграция</text>
+    <text x="478" y="160" font-size="11.5">Контур демонтажа</text>
+    <text x="478" y="184" font-size="11.5" font-weight="700">Заявка не проходит без</text>
+    <text x="478" y="201" font-size="11.5" font-weight="700">проверки покрытия складом</text>
+    <text x="478" y="222" font-size="11" fill="#0e9f6e">продукт становится обязательным</text>
+
+    <rect x="678" y="58" width="200" height="180" rx="10" fill="#f6f2ff" stroke="#6d43c8"/>
+    <text x="694" y="82" font-weight="700" fill="#6d43c8">Фаза 3 · автоматизация</text>
+    <text x="694" y="100" font-size="11" fill="#5d6b7f">6+ месяцев</text>
+    <text x="694" y="126" font-size="11.5">Приёмка фотопротоколов</text>
+    <text x="694" y="143" font-size="11.5">Распознавание типов</text>
+    <text x="694" y="160" font-size="11.5">Сверка «видим» и «числится»</text>
+    <text x="694" y="184" font-size="11" fill="#5d6b7f">условие входа: накоплен корпус</text>
+    <text x="694" y="200" font-size="11" fill="#5d6b7f">изображений с фаз 1–2</text>
+
+    <rect x="894" y="58" width="116" height="180" rx="10" fill="#f4f7fb" stroke="#5d6b7f"/>
+    <text x="910" y="82" font-weight="700" fill="#5d6b7f">Фаза 4</text>
+    <text x="910" y="100" font-size="11" fill="#5d6b7f">параллельно</text>
+    <text x="910" y="126" font-size="11.5">Мультиарендность</text>
+    <text x="910" y="143" font-size="11.5">Стандартные</text>
+    <text x="910" y="160" font-size="11.5">интерфейсы</text>
+    <text x="910" y="177" font-size="11.5">Второй клиент</text>
+
+    <rect x="30" y="256" width="416" height="50" rx="8" fill="#fde8e8" stroke="#b02a37"/>
+    <text x="46" y="276" font-size="12" font-weight="700" fill="#b02a37">ГЕЙТ 0 — останавливаемся, если:</text>
+    <text x="46" y="295" font-size="11.5">доля покрытия близка к нулю ИЛИ доступ к сетевой системе невозможен</text>
+
+    <rect x="462" y="256" width="416" height="50" rx="8" fill="#fde8e8" stroke="#b02a37"/>
+    <text x="478" y="276" font-size="12" font-weight="700" fill="#b02a37">ГЕЙТ 1 — останавливаемся, если:</text>
+    <text x="478" y="295" font-size="11.5">приложением пользуются менее 50% через 2 мес · сходимость менее 80%</text>
+  </svg>
+  </div>
+</section>
+
+<!-- 10. VALUE DRIVERS -->
+<section>
+  <h2>10. Семь драйверов ценности</h2>
+  <table>
+    <tr><th style="width:64px">Код</th><th style="width:280px">Драйвер</th><th>Механика</th><th style="width:180px">Достоверность оценки</th></tr>
+    <tr><td>Д1</td><td><b>Избежанная закупка</b></td><td>Потребность, закрытая складом и годным демонтажем, умноженная на цену</td><td class="yes">Высокая — прямо измерима</td></tr>
+    <tr><td>Д2</td><td><b>Оборотный капитал</b></td><td>Снижение среднего остатка, умноженное на стоимость капитала</td><td class="yes">Высокая</td></tr>
+    <tr><td>Д3</td><td><b>Складские затраты</b></td><td>Сокращение площадей, фонда оплаты труда и затрат на обработку</td><td style="color:#d97706;font-weight:600">Средняя</td></tr>
+    <tr><td>Д4</td><td><b>Сокращение потерь</b></td><td>Выявленные расхождения по материалу у подрядчиков, умноженные на долю возмещения</td><td style="color:#d97706;font-weight:600">Средняя</td></tr>
+    <tr><td>Д5</td><td><b>Корректность капитализации</b></td><td>Сокращение незавершённого строительства, умноженное на ставку амортизации, плюс налоговый эффект</td><td style="color:#d97706;font-weight:600">Требует налоговой оценки</td></tr>
+    <tr><td>Д6</td><td><b>Реализация демонтажа</b></td><td>Объём, умноженный на цену вторичного рынка</td><td class="no">Низкая — рынок узкий</td></tr>
+    <tr><td>Д7</td><td><b>Снятие аудиторских рисков</b></td><td>Не поддаётся количественной оценке</td><td>Качественный</td></tr>
+  </table>
+  <div class="quote">
+    <b>Правило честного счёта.</b> Драйверы Д5 и Д6 в итоговый расчёт не включаются: Д5 не даёт денежного потока в первом приближении, а лишь меняет распределение прибыли между периодами; Д6 требует подтверждения наличия рынка сбыта. Разовые и постоянные эффекты не смешиваются.<br><br>
+    <b>Ключевая чувствительность.</b> Эффект почти линейно зависит от доли потребности, закрываемой из существующих запасов. Если фактическая доля закупок при наличии на складе окажется близка к нулю, <b>экономика проекта разваливается и проект закрывается на гейте 0</b>. Именно эта метрика измеряется первой.
+  </div>
+</section>
+
+<p class="foot">
+Все количественные ориентиры со статусом «оценка» подлежат замене на фактические данные в фазе 0.
+Отраслевые данные — доля застрявших активов, потери от несверки, показатели вендоров — представляют собой заявления компаний и экспертные оценки заинтересованных сторон.
+Использовать для обоснования актуальности проблемы; не использовать как бенчмарк для расчёта эффекта конкретного проекта.
+</p>
+
+</div>
+</body>
+</html>

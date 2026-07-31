@@ -1,0 +1,23 @@
+# vision-architect-sandbox
+#
+# Лёгкий образ для Stage 0 (формирование видения). Не требует pandas/openpyxl —
+# это диалоговый агент, а не финансовый калькулятор, поэтому образ отдельный
+# от finance-gemini-sandbox и собирается/тянется быстрее.
+#
+# Сборка:
+#   docker build -f docker/Dockerfile.vision_architect -t vision-architect-sandbox:latest .
+
+FROM python:3.11-slim
+
+# Только стандартная библиотека используется в run_vision_architect.py
+# (urllib), поэтому дополнительных pip-пакетов не требуется. Если захочешь
+# заменить urllib на requests/httpx — раскомментируй строку ниже.
+# RUN pip install --no-cache-dir requests
+
+WORKDIR /workspace
+
+# Полная команда в CMD (без ENTRYPOINT), чтобы её можно было целиком
+# переопределить в `docker run ... image python3 /workspace/docker/run_llm_council.py`.
+# С ENTRYPOINT ["python3"] такое переопределение склеилось бы в
+# `python3 python3 /workspace/...` и контейнер бы не стартовал.
+CMD ["python3", "/workspace/docker/run_vision_architect.py"]

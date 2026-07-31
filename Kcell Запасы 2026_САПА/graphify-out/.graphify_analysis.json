@@ -1,0 +1,738 @@
+{
+  "communities": {
+    "0": [
+      "04_finansy_i_riski_01_ekonomika_tsennosti_i_roi_alfa_parametr",
+      "04_finansy_i_riski_01_ekonomika_tsennosti_i_roi_bazovaya_liniya_zamerov",
+      "04_finansy_i_riski_01_ekonomika_tsennosti_i_roi_d1_izbezhannaya_zakupka",
+      "04_finansy_i_riski_01_ekonomika_tsennosti_i_roi_d2_oborotnyy_kapital",
+      "04_finansy_i_riski_01_ekonomika_tsennosti_i_roi_d5_korrektnost_kapitalizatsii",
+      "04_finansy_i_riski_01_ekonomika_tsennosti_i_roi_ekonomika_tsennosti",
+      "04_finansy_i_riski_01_ekonomika_tsennosti_i_roi_sem_drayverov_tsennosti",
+      "04_finansy_i_riski_02_yunit_ekonomika_i_finmodel_klyuchevye_dopuscheniya",
+      "04_finansy_i_riski_02_yunit_ekonomika_i_finmodel_ltv_cac",
+      "04_finansy_i_riski_02_yunit_ekonomika_i_finmodel_model_monetizatsii",
+      "04_finansy_i_riski_02_yunit_ekonomika_i_finmodel_potrebnost_v_kapitale",
+      "04_finansy_i_riski_02_yunit_ekonomika_i_finmodel_stsenarii_5_let",
+      "04_finansy_i_riski_02_yunit_ekonomika_i_finmodel_success_fee",
+      "04_finansy_i_riski_02_yunit_ekonomika_i_finmodel_tarify_g",
+      "04_finansy_i_riski_02_yunit_ekonomika_i_finmodel_yunit_ekonomika",
+      "04_finansy_i_riski_03_reestr_riskov_r1_dolya_pokrytiya_blizka_k_nulyu",
+      "04_finansy_i_riski_03_reestr_riskov_reestr_riskov",
+      "04_finansy_i_riski_03_reestr_riskov_yu1_prava_na_razrabotku",
+      "04_finansy_i_riski_03_reestr_riskov_yu3_konflikt_interesov",
+      "05_dopolnitelno_01_go_to_market_deloitte_riaktr",
+      "05_dopolnitelno_01_go_to_market_karta_roley",
+      "05_dopolnitelno_01_go_to_market_konsaltingovyy_kanal",
+      "05_dopolnitelno_01_go_to_market_strategiya_vyhoda_na_rynok",
+      "05_dopolnitelno_01_go_to_market_strategy_and_pwc",
+      "05_dopolnitelno_01_go_to_market_yakornyy_klient_produkt",
+      "05_dopolnitelno_02_gipotezy_i_plan_validatsii_g1_dolya_potrebnosti_iz_zapasov",
+      "05_dopolnitelno_02_gipotezy_i_plan_validatsii_g3_prava_na_is",
+      "05_dopolnitelno_03_otkrytye_voprosy_otkrytye_voprosy",
+      "05_dopolnitelno_03_otkrytye_voprosy_v1_stroim_li_planirovschik",
+      "05_dopolnitelno_03_otkrytye_voprosy_v3_yakornyy_klient_svyazannaya_storona",
+      "06_word_versii_vnimanie_versii_ustareli_slovo_versii_ustareli",
+      "archive_asset_menedzhment_telekom_kontseptsiya_i_plan_infovista",
+      "archive_asset_menedzhment_telekom_kontseptsiya_i_plan_kontseptsiya_i_plan",
+      "archive_asset_menedzhment_telekom_kontseptsiya_i_plan_prilozhenie_a_reestr_riskov",
+      "archive_asset_menedzhment_telekom_kontseptsiya_i_plan_riaktr",
+      "archive_asset_menedzhment_telekom_kontseptsiya_i_plan_semь_drayverov_arch",
+      "archive_asset_menedzhment_telekom_kontseptsiya_i_plan_smart_capex",
+      "archive_asset_menedzhment_telekom_kontseptsiya_i_plan_svyaz_s_tekuschim_proektom",
+      "archive_asset_menedzhment_telekom_kontseptsiya_i_plan_v2_kontseptsiya_i_plan_v2",
+      "archive_asset_menedzhment_telekom_kontseptsiya_i_plan_yakornyy_klient_strategiya_arch"
+    ],
+    "1": [
+      "00_upravlenie_glossariy_materialnyy_list",
+      "00_upravlenie_glossariy_proektnaya_spetsifikatsiya",
+      "00_upravlenie_glossariy_uravnenie_sverki_podryadchika",
+      "00_upravlenie_glossariy_zakaz_na_rabotu",
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_r_g_kontur_podryadchika",
+      "00_upravlenie_readme_indeks_proekta_dvoynoe_mestonakhozhdenie",
+      "00_upravlenie_readme_indeks_proekta_proektnaya_spetsifikatsiya",
+      "00_upravlenie_readme_indeks_proekta_zakaz_na_rabotu_material_list",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_kontur_podryadchika",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_mekhanizm_1_zakaz_na_rabotu",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_mekhanizm_2_signal_iz_seti",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_shest_punktov_dogovora",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_uravnenie_sverki_podryadchika",
+      "01_memo_i_prezentatsiya_03_vizualizatsii_mekhanizmy_fakticheskogo_mestonakhozhdeniya",
+      "01_memo_i_prezentatsiya_03_vizualizatsii_uravnenie_sverki_podryadchika",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_podryadchiki",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_tsel_ts3_zamykanie_kontura_podryadchika",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_u3_poryadok_ucheta_materiala_u_podryadchika",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_yuridicheskaya_sluzhba",
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_uravnenie_sverki_podryadchika",
+      "02_proektnaya_dokumentatsiya_03_moduli_i_funktsionalnye_trebovaniya_modul_m3_kontrol_razvertyvaniya",
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_raskhozhdenie_entity",
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_zakaz_na_rabotu_i_materialnyy_list_entity",
+      "02_proektnaya_dokumentatsiya_06_zapros_dannykh_dlya_fazy_0_blok_2_material_u_podryadchikov",
+      "02_proektnaya_dokumentatsiya_06_zapros_dannykh_dlya_fazy_0_blok_6_raboty_podryadchikov",
+      "02_proektnaya_dokumentatsiya_06_zapros_dannykh_dlya_fazy_0_blok_8_proektnaya_dokumentatsiya_obraztsy",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_accruent_siterra",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_atrebo_tarantula",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_oblast_upravlenie_ploshchadkami",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_rakuten_symphony_site_management",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_sitetracker",
+      "03_analiz_rynka_03_biznes_keysy_keys_3_sap_material_u_podryadchika_nevidim",
+      "03_analiz_rynka_03_biznes_keysy_keys_8_rakuten_intellektualnyy_audit"
+    ],
+    "2": [
+      "graphify_out_converted_4_dorozhnaya_karta_i_plan_04d35182",
+      "graphify_out_converted_4_dorozhnaya_karta_i_plan_04d35182_faza_0",
+      "graphify_out_converted_4_dorozhnaya_karta_i_plan_04d35182_faza_1",
+      "graphify_out_converted_4_dorozhnaya_karta_i_plan_04d35182_faza_2",
+      "graphify_out_converted_4_dorozhnaya_karta_i_plan_04d35182_faza_3",
+      "graphify_out_converted_4_dorozhnaya_karta_i_plan_04d35182_faza_4",
+      "graphify_out_converted_4_dorozhnaya_karta_i_plan_04d35182_geyt_0",
+      "graphify_out_converted_4_dorozhnaya_karta_i_plan_04d35182_geyt_1",
+      "graphify_out_converted_4_dorozhnaya_karta_i_plan_04d35182_geyt_2",
+      "graphify_out_converted_4_dorozhnaya_karta_i_plan_04d35182_klassifikatsiya_nomenklatury",
+      "graphify_out_converted_4_dorozhnaya_karta_i_plan_04d35182_prava_na_is",
+      "graphify_out_converted_4_dorozhnaya_karta_i_plan_04d35182_shest_metrik_bazovoy_linii",
+      "graphify_out_converted_4_dorozhnaya_karta_i_plan_04d35182_skvoznoy_uchet",
+      "graphify_out_converted_4_dorozhnaya_karta_i_plan_04d35182_yakornyy_klient",
+      "graphify_out_converted_5_reyting_vendorov_po_modulyam_ba2b6d28",
+      "graphify_out_converted_5_reyting_vendorov_po_modulyam_ba2b6d28_deepomatic",
+      "graphify_out_converted_5_reyting_vendorov_po_modulyam_ba2b6d28_infovista",
+      "graphify_out_converted_5_reyting_vendorov_po_modulyam_ba2b6d28_netcracker",
+      "graphify_out_converted_5_reyting_vendorov_po_modulyam_ba2b6d28_rakuten_symphony",
+      "graphify_out_converted_5_reyting_vendorov_po_modulyam_ba2b6d28_riaktr",
+      "graphify_out_converted_5_reyting_vendorov_po_modulyam_ba2b6d28_servicenow",
+      "graphify_out_converted_5_reyting_vendorov_po_modulyam_ba2b6d28_sitetracker",
+      "graphify_out_converted_5_reyting_vendorov_po_modulyam_ba2b6d28_telefonica_maia",
+      "graphify_out_converted_5_reyting_vendorov_po_modulyam_ba2b6d28_txo_pics_telecom",
+      "graphify_out_converted_5_reyting_vendorov_po_modulyam_ba2b6d28_vc4",
+      "graphify_out_converted_5_reyting_vendorov_po_modulyam_ba2b6d28_verusen",
+      "graphify_out_converted_5_reyting_vendorov_po_modulyam_ba2b6d28_vodafone",
+      "graphify_out_converted_5_reyting_vendorov_po_modulyam_ba2b6d28_zebra_technologies",
+      "graphify_out_converted_6_zapros_dannyh_dlya_fazy_0"
+    ],
+    "3": [
+      "00_upravlenie_glossariy_geyt",
+      "00_upravlenie_glossariy_klass_a",
+      "00_upravlenie_glossariy_klass_b",
+      "00_upravlenie_glossariy_klass_g",
+      "00_upravlenie_glossariy_klass_v",
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_r_e_klassy_nomenklatury_abcd",
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_r_l_oss_privilegirovannyy_istochnik",
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_r_n_finansovaya_model_parametrizatsiya",
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_r_zh_masshtab_i_sroki",
+      "00_upravlenie_readme_indeks_proekta_roli_storon",
+      "00_upravlenie_zhurnal_resheniy_r_003_tonkoe_yadro_partnerskie_kraya",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_vopros_findira_60_mlrd",
+      "01_memo_i_prezentatsiya_03_vizualizatsii_fazy_i_geyty",
+      "01_memo_i_prezentatsiya_03_vizualizatsii_klassy_nomenklatury",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_finansovyy_direktor",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_tekhnicheskiy_direktor",
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_chetyre_nezavisimykh_utverzhdeniya",
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_p4_fizika_vazhnee_zapisi",
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_setevoe_utverzhdenie_privilegirovannyy_istochnik",
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_klass_a_prosleshivaniya",
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_klass_b_prosleshivaniya",
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_klass_g_prosleshivaniya",
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_klass_v_prosleshivaniya",
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_nomenklaturnaya_pozitsiya",
+      "02_proektnaya_dokumentatsiya_05_dorozhnaya_karta_i_plan_faza_1_pervaya_versiya",
+      "02_proektnaya_dokumentatsiya_05_dorozhnaya_karta_i_plan_geyt_0",
+      "02_proektnaya_dokumentatsiya_05_dorozhnaya_karta_i_plan_geyt_1",
+      "02_proektnaya_dokumentatsiya_06_zapros_dannykh_dlya_fazy_0_blok_1_zapasy"
+    ],
+    "4": [
+      "graphify_out_converted_6_ekonomika_tsennosti_i_roi_4185c704_bazovaya_liniya_zamerov",
+      "graphify_out_converted_6_ekonomika_tsennosti_i_roi_4185c704_chuvstvitelnost_alpha",
+      "graphify_out_converted_6_ekonomika_tsennosti_i_roi_4185c704_d1_izbezhannaya_zakupka",
+      "graphify_out_converted_6_ekonomika_tsennosti_i_roi_4185c704_d2_oborotny_kapital",
+      "graphify_out_converted_6_ekonomika_tsennosti_i_roi_4185c704_d3_skladskie_zatraty",
+      "graphify_out_converted_6_ekonomika_tsennosti_i_roi_4185c704_d4_sokraschenie_poter",
+      "graphify_out_converted_6_ekonomika_tsennosti_i_roi_4185c704_d5_korrektnost_kapitalizatsii",
+      "graphify_out_converted_6_ekonomika_tsennosti_i_roi_4185c704_d6_realizatsiya_demontazha",
+      "graphify_out_converted_6_ekonomika_tsennosti_i_roi_4185c704_d7_auditorskie_riski",
+      "graphify_out_converted_6_ekonomika_tsennosti_i_roi_4185c704_ekonomika_tsennosti",
+      "graphify_out_converted_6_ekonomika_tsennosti_i_roi_4185c704_formula_godovogo_effekta",
+      "graphify_out_converted_6_ekonomika_tsennosti_i_roi_4185c704_kontury_ucheta",
+      "graphify_out_converted_6_ekonomika_tsennosti_i_roi_4185c704_sem_drayverov",
+      "graphify_out_converted_6_ekonomika_tsennosti_i_roi_4185c704_tri_stsenariya",
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_kanonicheskaya_model_zhiznennogo_tsikla",
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_klassy_nomenklatury",
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_m1_9_blokiruyuschy_rezhim",
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_m1_shlyuz_pokrytiya_potrebnosti",
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_m2_zhiznenny_tsikl_aktiva",
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_m3_kontrol_razvertyvaniya",
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_m4_kontrol_uchetnogo_priznaniya",
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_ochered_bystrykh_pobed",
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_ochered_dolgikh_pobed",
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_ochered_srednikh_pobed",
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_osn_osnovanie",
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_vkh_interfeys_vkhoda",
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_volna_1_yadro",
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_vykh_interfeys_vykhoda"
+    ],
+    "5": [
+      "00_upravlenie_glossariy_derzhatel",
+      "00_upravlenie_glossariy_dokazatelstvo",
+      "00_upravlenie_glossariy_ekzemplyar_aktiva",
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_r_d_auditorskiy_kontur",
+      "00_upravlenie_readme_indeks_proekta_lag_dokumentov",
+      "00_upravlenie_readme_indeks_proekta_razryv_dokumenta_i_fakta_r4",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_r1_razryv_potrebnosti",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_r2_razryv_identichnosti",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_r3_razryv_vladeniya",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_r4_razryv_dokumenta_fakta",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_r5_razryv_priznaniya",
+      "01_memo_i_prezentatsiya_02_one_pager_pyat_razryvov",
+      "01_memo_i_prezentatsiya_03_vizualizatsii_pyat_razryvov",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_tsel_ts2_proslezhivaemost_ekzemplyara",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_vnutrenniy_audit",
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_matritsa_sostoyaniy_ekzemplyara",
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_p2_ekzemplyar_pervichen",
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_p9_dokazatelstvo_otdelnaya_sushchnost",
+      "02_proektnaya_dokumentatsiya_03_moduli_i_funktsionalnye_trebovaniya_kanonicheskaya_model_zhiznennogo_tsikla",
+      "02_proektnaya_dokumentatsiya_03_moduli_i_funktsionalnye_trebovaniya_modul_m2_zhiznennyy_tsikl_i_vladenie_aktivom",
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_derzhatel_entity",
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_dokazatelstvo_entity",
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_ekzemplyar_aktiva_entity",
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_ploshchadka_entity",
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_sobytie_zhiznennogo_tsikla_entity",
+      "02_proektnaya_dokumentatsiya_06_zapros_dannykh_dlya_fazy_0_blok_4_nzs_i_os"
+    ],
+    "6": [
+      "00_upravlenie_karta_svyazey_riaktr_prodana_10_4_mln_evro",
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_infovista",
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_r_b_sostav_produkta_8_vs_4_modulya",
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_r_i_pozitsionirovanie_nazvanie",
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_r_k_gtm_kanal_big4",
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_riaktr",
+      "00_upravlenie_readme_indeks_proekta_assetloop_staroe_nazvanie",
+      "00_upravlenie_readme_indeks_proekta_rassul_farzaliev",
+      "00_upravlenie_readme_indeks_proekta_skvoznoy_uchet",
+      "00_upravlenie_zhurnal_resheniy_r_005_nazvanie_skvoznoy_uchet",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_tsel_ts1_obosnovannost_zakupki",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_vne_granits_planirovanie_investitsiy",
+      "02_proektnaya_dokumentatsiya_03_moduli_i_funktsionalnye_trebovaniya_m1_9_blokiruyushchiy_rezhim",
+      "02_proektnaya_dokumentatsiya_03_moduli_i_funktsionalnye_trebovaniya_modul_m1_shlyuz_pokrytiya_potrebnosti",
+      "02_proektnaya_dokumentatsiya_03_moduli_i_funktsionalnye_trebovaniya_modul_vkh_priem_investplana",
+      "02_proektnaya_dokumentatsiya_03_moduli_i_funktsionalnye_trebovaniya_r4_planirovshchik_kapeks_ne_rekomenduetsya",
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_potrebnost_entity",
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_spravochnik_vzaimozamenyaemosti",
+      "03_analiz_rynka_01_rynok_obyom_i_segmenty_riaktr_prodazha_10_4_mln",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_infovista_smart_capex",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_intellias_smart_capex",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_oblast_planirovanie_investitsiy",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_riaktr"
+    ],
+    "7": [
+      "graphify_out_converted_8_reestr_riskov_3773ac43_reestr_riskov",
+      "graphify_out_converted_8_reestr_riskov_3773ac43_risk_o1_soprotivlenie_podryadchikov",
+      "graphify_out_converted_8_reestr_riskov_3773ac43_risk_o2_net_sponsora",
+      "graphify_out_converted_8_reestr_riskov_3773ac43_risk_r1_dolya_pokrytiya",
+      "graphify_out_converted_8_reestr_riskov_3773ac43_risk_t14_nasledovannaya_infrastruktura",
+      "graphify_out_converted_8_reestr_riskov_3773ac43_risk_t1_t11_dostup_serijnye_nomera",
+      "graphify_out_converted_8_reestr_riskov_3773ac43_risk_t2_kachestvo_spravochnyh_dannyh",
+      "graphify_out_converted_8_reestr_riskov_3773ac43_risk_t3_zakrytost_vendora",
+      "graphify_out_converted_8_reestr_riskov_3773ac43_risk_yu1_prava_na_razrabotku",
+      "graphify_out_converted_8_reestr_riskov_3773ac43_risk_yu3_konflikt_interesov",
+      "graphify_out_converted_8_reestr_riskov_3773ac43_risk_yu5_dogovory_podryadchikov",
+      "graphify_out_converted_8_reestr_riskov_3773ac43_tmf639_standart",
+      "graphify_out_converted_9_zapros_dannyh_dlya_fazy_0_973ce211_blok_demontazh",
+      "graphify_out_converted_9_zapros_dannyh_dlya_fazy_0_973ce211_blok_material_u_podryadchikov",
+      "graphify_out_converted_9_zapros_dannyh_dlya_fazy_0_973ce211_blok_nezavershennoe_stroitelstvo",
+      "graphify_out_converted_9_zapros_dannyh_dlya_fazy_0_973ce211_blok_proektnaya_dokumentatsiya",
+      "graphify_out_converted_9_zapros_dannyh_dlya_fazy_0_973ce211_blok_raboty_podryadchikov",
+      "graphify_out_converted_9_zapros_dannyh_dlya_fazy_0_973ce211_blok_set",
+      "graphify_out_converted_9_zapros_dannyh_dlya_fazy_0_973ce211_blok_zakupki",
+      "graphify_out_converted_9_zapros_dannyh_dlya_fazy_0_973ce211_blok_zapasy",
+      "graphify_out_converted_9_zapros_dannyh_dlya_fazy_0_973ce211_gate_0",
+      "graphify_out_converted_9_zapros_dannyh_dlya_fazy_0_973ce211_zapros_dannyh_fazy_0"
+    ],
+    "8": [
+      "00_upravlenie_glossariy_fakticheskoe_mestonakhozhdenie",
+      "00_upravlenie_glossariy_lag_dokumentov",
+      "00_upravlenie_glossariy_tri_kontura",
+      "00_upravlenie_glossariy_uchetnoe_mestonakhozhdenie",
+      "00_upravlenie_readme_indeks_proekta_tri_kontura_dve_shkaly",
+      "00_upravlenie_zhurnal_resheniy_r_002_dostovernost_do_optimizatsii",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_razryv_dokumenta_i_fakta",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_tri_kontura_dve_shkaly",
+      "01_memo_i_prezentatsiya_02_one_pager_tri_kontura_dve_shkaly",
+      "01_memo_i_prezentatsiya_03_vizualizatsii_tri_kontura",
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_dvoynoe_mestonakhozhdenie",
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_p7_nichego_ne_dublirovat",
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_p8_karta_otlichima_ot_territorii",
+      "02_proektnaya_dokumentatsiya_03_moduli_i_funktsionalnye_trebovaniya_r1_optimizatsiya_strakhovogo_zapasa",
+      "02_proektnaya_dokumentatsiya_05_dorozhnaya_karta_i_plan_dve_shkaly_ocherednost",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_baxter_planning",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_lokad",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_oblast_optimizatsiya_zapasov",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_ptc_servigistics",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_syncron_inventory",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_verusen"
+    ],
+    "9": [
+      "00_upravlenie_glossariy_lenta_sobytiy_append_only",
+      "00_upravlenie_glossariy_nadstroechnaya_arkhitektura_overlay",
+      "00_upravlenie_glossariy_sistema_sverki",
+      "00_upravlenie_glossariy_sistema_zapisi",
+      "00_upravlenie_karta_svyazey_protokol_pravki_paketa",
+      "00_upravlenie_zhurnal_resheniy_r_001_overlay_vmesto_zameny_sistem",
+      "00_upravlenie_zhurnal_resheniy_r_006_tm_forum_open_api",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_it_departament",
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_p1_ne_sistema_zapisi",
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_p5_otkrytye_standarty",
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_p6_neizmenyaemost_istorii",
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_tmf639_tmf634",
+      "02_proektnaya_dokumentatsiya_03_moduli_i_funktsionalnye_trebovaniya_modul_osn_osnovanie",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_amdocs_network_inventory",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_comarch_oss_resource_inventory",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_netcracker",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_oblast_setevoy_inventar",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_oracle_uim",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_servicenow_telecom_network_inventory",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_sunvizion_network_inventory",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_vc4_integrated_management_suite"
+    ],
+    "10": [
+      "00_upravlenie_karta_svyazey_rfid_metki_60_80_protsentov_schityvaniya",
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_r_m_rfid_i_cv_zhestche",
+      "01_memo_i_prezentatsiya_03_vizualizatsii_pochemu_cv_ne_pervyy_shag",
+      "02_proektnaya_dokumentatsiya_05_dorozhnaya_karta_i_plan_faza_3_avtomatizatsiya",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_assetpulse",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_bentley_opentower_iq",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_camcode",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_deepomatic",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_dvumernyy_shtrikhkod",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_ericsson_site_inspection",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_impinj",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_iqgeo",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_litum",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_oblast_identifikatsiya",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_oblast_komputernoe_zrenie",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_pointivo",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_rfid_passivnaya_metka",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_vhive",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_zebra_technologies",
+      "03_analiz_rynka_03_biznes_keysy_keys_10_rfid_praktika",
+      "03_analiz_rynka_03_biznes_keysy_keys_9_komputernoe_zrenie_praktika"
+    ],
+    "11": [
+      "graphify_out_converted_1_investicionnoe_memo_892e07a5_findirektor",
+      "graphify_out_converted_1_investicionnoe_memo_892e07a5_ias_16",
+      "graphify_out_converted_1_investicionnoe_memo_892e07a5_memo",
+      "graphify_out_converted_1_investicionnoe_memo_892e07a5_otraslevye_benchmarki",
+      "graphify_out_converted_1_investicionnoe_memo_892e07a5_partner_investor",
+      "graphify_out_converted_1_investicionnoe_memo_892e07a5_ploshadka",
+      "graphify_out_converted_1_investicionnoe_memo_892e07a5_podryadchik",
+      "graphify_out_converted_1_investicionnoe_memo_892e07a5_pyat_razryvov",
+      "graphify_out_converted_1_investicionnoe_memo_892e07a5_sklad_operatora",
+      "graphify_out_converted_1_investicionnoe_memo_892e07a5_skvoznoy_uchet",
+      "graphify_out_converted_1_investicionnoe_memo_892e07a5_tochka_kapitalizacii",
+      "graphify_out_converted_1_investicionnoe_memo_892e07a5_uravnenie_sverki",
+      "graphify_out_converted_1_investicionnoe_memo_892e07a5_yakornyy_klient",
+      "graphify_out_converted_2_one_pager_b38b8ea1_onepager",
+      "graphify_out_converted_3_ustav_proekta_551140af_celi_proekta",
+      "graphify_out_converted_3_ustav_proekta_551140af_chetyre_uchetnyh_resheniya",
+      "graphify_out_converted_3_ustav_proekta_551140af_glavny_buhgalter",
+      "graphify_out_converted_3_ustav_proekta_551140af_granicy_proekta",
+      "graphify_out_converted_3_ustav_proekta_551140af_tehnicheskiy_direktor",
+      "graphify_out_converted_3_ustav_proekta_551140af_ustav",
+      "graphify_out_converted_3_ustav_proekta_551140af_vnutrenniy_audit"
+    ],
+    "12": [
+      "00_upravlenie_glossariy_bazovaya_liniya",
+      "00_upravlenie_glossariy_tochnost_zapasov",
+      "00_upravlenie_karta_svyazey_kapitalizatsiya_ias16_on_air",
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_r_v_tochka_kapitalizatsii_ias16",
+      "00_upravlenie_zhurnal_resheniy_r_004_faza_0_oplachivaetsya_klientom",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_ias_16",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_tochka_kapitalizatsii",
+      "01_memo_i_prezentatsiya_02_one_pager_tochka_kapitalizatsii",
+      "01_memo_i_prezentatsiya_03_vizualizatsii_tochka_kapitalizatsii",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_glavnyy_bukhgalter",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_tsel_ts4_korrektnost_uchetnogo_priznaniya",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_u1_kriteriy_gotovnosti_k_ispolzovaniyu",
+      "02_proektnaya_dokumentatsiya_03_moduli_i_funktsionalnye_trebovaniya_modul_m4_kontrol_uchetnogo_priznaniya",
+      "02_proektnaya_dokumentatsiya_05_dorozhnaya_karta_i_plan_faza_0_obsledovanie",
+      "02_proektnaya_dokumentatsiya_05_dorozhnaya_karta_i_plan_shest_metrik_bazovoy_linii",
+      "02_proektnaya_dokumentatsiya_06_zapros_dannykh_dlya_fazy_0_blok_3_zakupki",
+      "02_proektnaya_dokumentatsiya_06_zapros_dannykh_dlya_fazy_0_blok_5_set",
+      "03_analiz_rynka_03_biznes_keysy_keys_4_ias16_gotovnost_k_ispolzovaniyu"
+    ],
+    "13": [
+      "00_upravlenie_glossariy_prizrak_ghost_asset",
+      "00_upravlenie_glossariy_zastryavshiy_aktiv_stranded_asset",
+      "00_upravlenie_karta_svyazey_servicenow_35_protsentov_zastryavshikh",
+      "00_upravlenie_karta_svyazey_subex_poteri_2_5_protsentov",
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_r_z_trend_kapeksa",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_servicenow_35_stranded",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_subex_2_5_poteri",
+      "03_analiz_rynka_01_rynok_obyom_i_segmenty_globalnyy_telekom_kapeks_dinamika",
+      "03_analiz_rynka_01_rynok_obyom_i_segmenty_okno_vozmozhnosti",
+      "03_analiz_rynka_01_rynok_obyom_i_segmenty_servicenow_35_stranded",
+      "03_analiz_rynka_01_rynok_obyom_i_segmenty_subex_2_5_poteri",
+      "03_analiz_rynka_03_biznes_keysy_keys_1_servicenow_35_stranded",
+      "03_analiz_rynka_03_biznes_keysy_keys_2_subex_2_5_poteri"
+    ],
+    "14": [
+      "00_upravlenie_karta_svyazey_telefonica_43_otrasl_10",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_telefonica_43_reuse",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_tsel_ts5_vozvratnost",
+      "02_proektnaya_dokumentatsiya_03_moduli_i_funktsionalnye_trebovaniya_r2_obratnaya_logistika_modul",
+      "02_proektnaya_dokumentatsiya_06_zapros_dannykh_dlya_fazy_0_blok_7_demontazh",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_nefab",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_oblast_obratnaya_logistika",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_telefonica_maia",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_txo_pics_telecom",
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_vodafone_marketplace",
+      "03_analiz_rynka_03_biznes_keysy_keys_5_telefonica_maia",
+      "03_analiz_rynka_03_biznes_keysy_keys_6_vodafone_ekonomiya",
+      "03_analiz_rynka_03_biznes_keysy_keys_7_otraslevoy_benchmark_pereispolzovaniya"
+    ],
+    "15": [
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_r_a_ramka_proekta_startap",
+      "00_upravlenie_raskhozhdeniya_v2_vs_paket_v2_kontseptsiya_arkhiv",
+      "00_upravlenie_readme_indeks_proekta_landshaft_sistem_yakornogo_klienta",
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_landshaft_sistem_yakornogo_klienta",
+      "02_proektnaya_dokumentatsiya_05_dorozhnaya_karta_i_plan_risk_prava_na_is",
+      "02_proektnaya_dokumentatsiya_05_dorozhnaya_karta_i_plan_strategiya_yakornyy_klient_produkt",
+      "03_analiz_rynka_01_rynok_obyom_i_segmenty_sam",
+      "03_analiz_rynka_01_rynok_obyom_i_segmenty_som",
+      "03_analiz_rynka_01_rynok_obyom_i_segmenty_tam"
+    ],
+    "16": [
+      "00_upravlenie_glossariy_novaya_passivnaya_infrastruktura",
+      "00_upravlenie_glossariy_unasledovannaya_passivnaya_infrastruktura",
+      "00_upravlenie_readme_indeks_proekta_granitsa_po_date_passivnoy_infra",
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_vne_granits_unasledovannaya_infra",
+      "02_proektnaya_dokumentatsiya_05_dorozhnaya_karta_i_plan_granitsa_po_date_passivnoy_infra"
+    ],
+    "17": [
+      "00_upravlenie_readme_indeks_proekta_dve_volny_ocherednost",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_dva_varianta_sostava",
+      "01_memo_i_prezentatsiya_03_vizualizatsii_dve_volny",
+      "02_proektnaya_dokumentatsiya_03_moduli_i_funktsionalnye_trebovaniya_volna_1_yadro",
+      "02_proektnaya_dokumentatsiya_03_moduli_i_funktsionalnye_trebovaniya_volna_2_rasshireniya"
+    ],
+    "18": [
+      "00_upravlenie_glossariy_ispolnitelnaya_polovina_kapeks_tsikla",
+      "00_upravlenie_readme_indeks_proekta_ispolnitelnaya_polovina_kapeks_tsikla",
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_skvoznoy_uchet",
+      "01_memo_i_prezentatsiya_02_one_pager_skvoznoy_uchet"
+    ],
+    "19": [
+      "03_analiz_rynka_01_rynok_obyom_i_segmenty_beeline_kz",
+      "03_analiz_rynka_01_rynok_obyom_i_segmenty_kcell",
+      "03_analiz_rynka_01_rynok_obyom_i_segmenty_tele2_altel"
+    ],
+    "20": [
+      "04_finansy_i_riski_03_reestr_riskov_o1_soprotivlenie_podryadchikov",
+      "05_dopolnitelno_02_gipotezy_i_plan_validatsii_g11_kompensiruyuschaya_vygoda",
+      "05_dopolnitelno_02_gipotezy_i_plan_validatsii_g8_podryadchiki_primut_fotoprotokol"
+    ],
+    "21": [
+      "04_finansy_i_riski_03_reestr_riskov_t11_serviynye_nomera_setevyh_sistem",
+      "04_finansy_i_riski_03_reestr_riskov_t1_net_dostupa_k_setevoy_sisteme",
+      "05_dopolnitelno_02_gipotezy_i_plan_validatsii_g2_dostup_k_setevoy_sisteme"
+    ],
+    "22": [
+      "00_upravlenie_glossariy_bss",
+      "00_upravlenie_glossariy_oss"
+    ],
+    "23": [
+      "00_upravlenie_glossariy_bystrye_srednie_dolgie_pobedy",
+      "00_upravlenie_glossariy_volna_1_i_volna_2"
+    ],
+    "24": [
+      "00_upravlenie_glossariy_capex",
+      "00_upravlenie_glossariy_smart_capex"
+    ],
+    "25": [
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_sloi_arkhitektury",
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_sobytiynyy_reestr_zhiznennogo_tsikla"
+    ],
+    "26": [
+      "03_analiz_rynka_01_rynok_obyom_i_segmenty_mno_srednego_razmera",
+      "03_analiz_rynka_01_rynok_obyom_i_segmenty_towerco"
+    ],
+    "27": [
+      "04_finansy_i_riski_03_reestr_riskov_t2_kachestvo_spravochnyh_dannyh",
+      "05_dopolnitelno_02_gipotezy_i_plan_validatsii_g4_kachestvo_spravochnyh_dannyh"
+    ],
+    "28": [
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_r4_planirovschik_kapvlozheniy",
+      "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_volna_2_rasshireniya"
+    ],
+    "29": [
+      "00_upravlenie_glossariy_ems_nms"
+    ],
+    "30": [
+      "00_upravlenie_glossariy_erp"
+    ],
+    "31": [
+      "00_upravlenie_glossariy_fa_fixed_assets"
+    ],
+    "32": [
+      "00_upravlenie_glossariy_opex"
+    ],
+    "33": [
+      "00_upravlenie_glossariy_shlyuz_pokrytiya_potrebnosti"
+    ],
+    "34": [
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_dva_kontura_chteniya"
+    ],
+    "35": [
+      "01_memo_i_prezentatsiya_01_investitsionnoe_memo_statusy_tsifr"
+    ],
+    "36": [
+      "01_memo_i_prezentatsiya_03_vizualizatsii_sem_drayverov_tsennosti"
+    ],
+    "37": [
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_direktor_po_stroitelstvu"
+    ],
+    "38": [
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_direktor_po_zakupkam"
+    ],
+    "39": [
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_logistika_i_sklad"
+    ],
+    "40": [
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_u2_otsenka_godnogo_demontazha"
+    ],
+    "41": [
+      "02_proektnaya_dokumentatsiya_01_ustav_proekta_u4_politika_rezervirovaniya"
+    ],
+    "42": [
+      "02_proektnaya_dokumentatsiya_02_arkhitektura_resheniya_p3_raskhozhdenie_eto_dannye"
+    ],
+    "43": [
+      "02_proektnaya_dokumentatsiya_03_moduli_i_funktsionalnye_trebovaniya_modul_vykh_vydacha_fakta"
+    ],
+    "44": [
+      "02_proektnaya_dokumentatsiya_03_moduli_i_funktsionalnye_trebovaniya_r3_edinyy_ekran_analitika"
+    ],
+    "45": [
+      "02_proektnaya_dokumentatsiya_04_model_dannykh_i_integratsii_partiya_entity"
+    ],
+    "46": [
+      "02_proektnaya_dokumentatsiya_05_dorozhnaya_karta_i_plan_faza_2_masshtabirovanie"
+    ],
+    "47": [
+      "02_proektnaya_dokumentatsiya_05_dorozhnaya_karta_i_plan_faza_4_produkt"
+    ],
+    "48": [
+      "03_analiz_rynka_01_rynok_obyom_i_segmenty_tm_forum_smart_capex_initsiativa"
+    ],
+    "49": [
+      "03_analiz_rynka_02_reyting_vendorov_po_modulyam_tm_forum_initsiativa"
+    ],
+    "50": [
+      "04_finansy_i_riski_03_reestr_riskov_o2_net_sponsora_cfo"
+    ],
+    "51": [
+      "04_finansy_i_riski_03_reestr_riskov_t14_unasledovannaya_infrastruktura"
+    ],
+    "52": [
+      "05_dopolnitelno_02_gipotezy_i_plan_validatsii_gipotezy_i_plan_validatsii"
+    ]
+  },
+  "cohesion": {
+    "0": 0.057692307692307696,
+    "1": 0.07954545454545454,
+    "2": 0.0812807881773399,
+    "3": 0.07671957671957672,
+    "4": 0.09259259259259259,
+    "5": 0.09538461538461539,
+    "6": 0.11462450592885376,
+    "7": 0.12987012987012986,
+    "8": 0.10952380952380952,
+    "9": 0.10476190476190476,
+    "10": 0.11428571428571428,
+    "11": 0.1761904761904762,
+    "12": 0.16993464052287582,
+    "13": 0.21794871794871795,
+    "14": 0.21794871794871795,
+    "15": 0.2777777777777778,
+    "16": 0.6,
+    "17": 0.6,
+    "18": 0.5,
+    "19": 0.6666666666666666,
+    "20": 0.6666666666666666,
+    "21": 0.6666666666666666,
+    "22": 1.0,
+    "23": 1.0,
+    "24": 1.0,
+    "25": 1.0,
+    "26": 1.0,
+    "27": 1.0,
+    "28": 1.0,
+    "29": 1.0,
+    "30": 1.0,
+    "31": 1.0,
+    "32": 1.0,
+    "33": 1.0,
+    "34": 1.0,
+    "35": 1.0,
+    "36": 1.0,
+    "37": 1.0,
+    "38": 1.0,
+    "39": 1.0,
+    "40": 1.0,
+    "41": 1.0,
+    "42": 1.0,
+    "43": 1.0,
+    "44": 1.0,
+    "45": 1.0,
+    "46": 1.0,
+    "47": 1.0,
+    "48": 1.0,
+    "49": 1.0,
+    "50": 1.0,
+    "51": 1.0,
+    "52": 1.0
+  },
+  "gods": [
+    {
+      "id": "graphify_out_converted_5_reyting_vendorov_po_modulyam_ba2b6d28",
+      "label": "Рейтинг решений: кто силён, в чём и по какой методике",
+      "degree": 15
+    },
+    {
+      "id": "01_memo_i_prezentatsiya_01_investitsionnoe_memo_kontur_podryadchika",
+      "label": "Контур подрядчика",
+      "degree": 10
+    },
+    {
+      "id": "graphify_out_converted_1_investicionnoe_memo_892e07a5_memo",
+      "label": "Инвестиционное мемо «Сквозной учёт»",
+      "degree": 10
+    },
+    {
+      "id": "graphify_out_converted_8_reestr_riskov_3773ac43_reestr_riskov",
+      "label": "Реестр рисков",
+      "degree": 10
+    },
+    {
+      "id": "01_memo_i_prezentatsiya_01_investitsionnoe_memo_tochka_kapitalizatsii",
+      "label": "Точка капитализации",
+      "degree": 9
+    },
+    {
+      "id": "03_analiz_rynka_02_reyting_vendorov_po_modulyam_oblast_komputernoe_zrenie",
+      "label": "Область: компьютерное зрение (фаза 3, не раньше)",
+      "degree": 9
+    },
+    {
+      "id": "graphify_out_converted_3_ustav_proekta_551140af_ustav",
+      "label": "Устав проекта «Сквозной учёт»",
+      "degree": 9
+    },
+    {
+      "id": "graphify_out_converted_6_ekonomika_tsennosti_i_roi_4185c704_sem_drayverov",
+      "label": "Семь драйверов ценности",
+      "degree": 9
+    },
+    {
+      "id": "graphify_out_converted_7_moduli_i_trebovaniya_15b70013_volna_1_yadro",
+      "label": "Волна 1 — ядро продукта",
+      "degree": 9
+    },
+    {
+      "id": "graphify_out_converted_9_zapros_dannyh_dlya_fazy_0_973ce211_zapros_dannyh_fazy_0",
+      "label": "Запрос данных для фазы 0",
+      "degree": 9
+    }
+  ],
+  "surprises": [
+    {
+      "source": "VC4 Integrated Management Suite",
+      "target": "Система сверки (system of reconciliation)",
+      "source_files": [
+        "03_Анализ_рынка/02_Рейтинг_вендоров_по_модулям.md",
+        "00_Управление/Глоссарий.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link; peripheral node `VC4 Integrated Management Suite` unexpectedly reaches hub `Система сверки (system of reconciliation)`"
+    },
+    {
+      "source": "Verusen",
+      "target": "Р-002: Порядок фаз — достоверность до оптимизации",
+      "source_files": [
+        "03_Анализ_рынка/02_Рейтинг_вендоров_по_модулям.md",
+        "00_Управление/Журнал_решений.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "Р-003: Тонкое ядро — партнёрские края",
+      "target": "Радиочастотная метка пассивная дальнего действия (RFID)",
+      "source_files": [
+        "00_Управление/Журнал_решений.md",
+        "03_Анализ_рынка/02_Рейтинг_вендоров_по_модулям.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "conceptually_related_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; bridges separate communities; peripheral node `Р-003: Тонкое ядро — партнёрские края` unexpectedly reaches hub `Радиочастотная метка пассивная дальнего действия (RFID)`"
+    },
+    {
+      "source": "Rakuten Symphony Site Management",
+      "target": "Шесть пунктов договора с подрядчиком",
+      "source_files": [
+        "03_Анализ_рынка/02_Рейтинг_вендоров_по_модулям.md",
+        "01_Мемо_и_презентация/01_Инвестиционное_мемо.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "Baxter Planning",
+      "target": "П7 — Ничего не дублировать",
+      "source_files": [
+        "03_Анализ_рынка/02_Рейтинг_вендоров_по_модулям.md",
+        "02_Проектная_документация/02_Архитектура_решения.md"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    }
+  ],
+  "questions": [
+    {
+      "type": "ambiguous_edge",
+      "question": "What is the exact relationship between `Система сверки (system of reconciliation)` and `Протокол правки пакета документации`?",
+      "why": "Edge tagged AMBIGUOUS (relation: conceptually_related_to) - confidence is low."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `Р-002: Порядок фаз — достоверность до оптимизации` connect `Community 8` to `Community 13`, `Community 6`?",
+      "why": "High betweenness centrality (0.081) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `Три контура: сколько денег и как быстро прозрачность` connect `Community 8` to `Community 3`?",
+      "why": "High betweenness centrality (0.067) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 6 inferred relationships involving `Контур подрядчика` (e.g. with `Riaktr продана за €10,4 млн` and `Ц3 — Замыкание контура подрядчика`) actually correct?",
+      "why": "`Контур подрядчика` has 6 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 2 inferred relationships involving `Инвестиционное мемо «Сквозной учёт»` (e.g. with `One-pager «Сквозной учёт»` and `Устав проекта «Сквозной учёт»`) actually correct?",
+      "why": "`Инвестиционное мемо «Сквозной учёт»` has 2 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 6 inferred relationships involving `Точка капитализации` (e.g. with `Р5 — разрыв признания` and `Ц4 — Корректность учётного признания`) actually correct?",
+      "why": "`Точка капитализации` has 6 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `Исполнительная половина цикла капитальных вложений`, `Разрыв документа и факта (Р4)`, `Лаг документов` to the rest of the system?",
+      "why": "155 weakly-connected nodes found - possible documentation gaps or missing edges."
+    }
+  ]
+}

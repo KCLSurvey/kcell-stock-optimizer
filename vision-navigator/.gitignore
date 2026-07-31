@@ -1,0 +1,13 @@
+# Локальный ключ API — НИКОГДА не коммитить
+config.json
+
+# Рабочие данные прогонов
+IDEAS/
+TASKS/
+vision_state.json
+*.log
+
+__pycache__/
+*.pyc
+.DS_Store
+proxy.txt

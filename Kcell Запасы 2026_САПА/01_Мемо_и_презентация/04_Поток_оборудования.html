@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Поток оборудования и участок нашей системы — «Сквозной учёт» / CapEx Velocity</title>
+<style>
+  :root{
+    --ink:#14181f; --muted:#5b6472; --line:#dfe3e9; --bg:#fbfcfd; --card:#fff;
+    --erp:#7a8699; --wms:#3f7fb8; --none:#c8442f; --oss:#2f8a5c; --fa:#7a5cb8;
+    --ours:#0f5fa8; --ourscore:#f0a500; --loop:#2f8a5c;
+    --noneBg:#fdf0ed; --oursBg:#eaf3fb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:32px 24px 56px;background:var(--bg);color:var(--ink);
+       font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+  .wrap{max-width:1560px;margin:0 auto}
+  h1{font-size:25px;margin:0 0 4px;letter-spacing:-.2px}
+  .sub{color:var(--muted);font-size:15px;margin:0 0 6px}
+  .meaning{font-size:17px;font-weight:600;margin:14px 0 26px;padding:13px 18px;
+           background:var(--oursBg);border-left:4px solid var(--ours);border-radius:0 8px 8px 0}
+  h2{font-size:18px;margin:38px 0 12px;letter-spacing:-.1px}
+  .note{color:var(--muted);font-size:13.5px;margin:8px 0 0}
+
+  .scroller{overflow-x:auto;padding-bottom:10px;border-radius:12px}
+  .board{min-width:1460px}
+
+  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:6px}
+  .rowlabel{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+            color:var(--muted);margin:20px 0 7px}
+
+  /* стадии */
+  .stage{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:9px 9px 10px;
+         min-height:104px;display:flex;flex-direction:column;gap:5px}
+  .stage.blind{background:var(--noneBg);border-color:#f0c4ba}
+  .num{width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;
+       font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .stage.blind .num{background:var(--none)}
+  .stitle{font-size:13px;font-weight:650;line-height:1.3}
+  .swho{font-size:11.5px;color:var(--muted);line-height:1.35;margin-top:auto}
+
+  /* полоса «кто видит» */
+  .sys{border-radius:8px;padding:8px 10px;color:#fff;font-size:12.5px;font-weight:650;
+       display:flex;flex-direction:column;justify-content:center;min-height:52px;text-align:center}
+  .sys small{display:block;font-weight:400;opacity:.9;font-size:11px;margin-top:2px}
+  .s-erp{background:var(--erp)} .s-wms{background:var(--wms)} .s-oss{background:var(--oss)}
+  .s-fa{background:var(--fa)}
+  .s-none{background:var(--none);box-shadow:0 0 0 3px rgba(200,68,47,.18)}
+
+  /* наша полоса */
+  .ours{border-radius:8px;min-height:56px;display:flex;flex-direction:column;
+        align-items:center;justify-content:center;text-align:center;font-size:12.5px;
+        font-weight:650;padding:8px 10px}
+  .o-out{background:#eef1f4;color:var(--muted);border:1px dashed #c7ced8}
+  .o-cov{background:var(--ours);color:#fff}
+  .o-core{background:var(--ourscore);color:#3d2b00;box-shadow:0 0 0 3px rgba(240,165,0,.25)}
+  .ours small{display:block;font-weight:400;font-size:11px;opacity:.92;margin-top:2px}
+
+  /* выноски */
+  .callouts{display:grid;grid-template-columns:repeat(12,1fr);gap:6px;margin-top:9px}
+  .callout{border-radius:8px;padding:9px 11px;font-size:12.5px;line-height:1.4}
+  .c-blind{background:#fff;border:1.5px solid var(--none);color:var(--none);font-weight:600}
+  .c-lag{background:#fff;border:1.5px solid #b8860b;color:#8a6508;font-weight:600}
+
+  /* петля */
+  .loopbar{margin-top:14px;border:1.5px dashed var(--loop);border-radius:10px;
+           padding:11px 16px;background:#f0f8f3;font-size:13.5px;color:#1d5c3d}
+  .loopbar b{color:var(--loop)}
+
+  table{width:100%;border-collapse:collapse;background:var(--card);
+        border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:14px}
+  th{background:#f2f5f8;text-align:left;padding:10px 13px;font-size:12.5px;
+     text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+  td{padding:11px 13px;border-top:1px solid var(--line);vertical-align:top}
+  td.zone{font-weight:650;white-space:nowrap}
+  .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:7px;vertical-align:1px}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:12px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+  .panel h3{margin:0 0 10px;font-size:15px}
+  .panel.yes h3{color:var(--oss)} .panel.no h3{color:var(--none)}
+  .panel ul{margin:0;padding-left:19px} .panel li{margin:7px 0;font-size:14px}
+
+  .legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:14px;font-size:12.5px;color:var(--muted)}
+  .legend span{display:flex;align-items:center;gap:7px}
+  .chip{width:16px;height:11px;border-radius:3px;display:inline-block}
+  footer{margin-top:34px;padding-top:14px;border-top:1px solid var(--line);
+         color:var(--muted);font-size:12.5px}
+  @media (max-width:900px){ .two{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Поток оборудования: где деньги теряются и что закрывает наша система</h1>
+  <p class="sub">«Сквозной учёт» / CapEx Velocity · версия 1.0 · 28.07.2026 · приложение к инвестиционному мемо</p>
+
+  <div class="meaning">
+    Сокращаем время и потери на пути от денег до работающего оборудования.
+    Одна величина: <b>капитал под риском в днях</b> = объём капитала вне эксплуатации × число дней вне эксплуатации + безвозвратные потери.
+  </div>
+
+  <div class="scroller"><div class="board">
+
+    <div class="rowlabel">1 · Двенадцать стадий жизни единицы оборудования</div>
+    <div class="grid">
+      <div class="stage"><div class="num">1</div><div class="stitle">Потребность определена</div><div class="swho">Планировщик сети решает, что площадку надо расширять</div></div>
+      <div class="stage"><div class="num">2</div><div class="stitle">Бюджет одобрен</div><div class="swho">Инвестиционный комитет утвердил сумму</div></div>
+      <div class="stage"><div class="num">3</div><div class="stitle">Заказ поставщику размещён</div><div class="swho">Закупки, договор, поставка</div></div>
+      <div class="stage"><div class="num">4</div><div class="stitle">Приёмка на склад оператора</div><div class="swho">Оборудование пришло, оприходовано</div></div>
+      <div class="stage"><div class="num">5</div><div class="stitle">Зарезервировано под площадку</div><div class="swho">Назначено конкретной стройке</div></div>
+      <div class="stage blind"><div class="num">6</div><div class="stitle">Выдано подрядчику</div><div class="swho">Склад списал с себя — и потерял объект из виду</div></div>
+      <div class="stage blind"><div class="num">7</div><div class="stitle">Лежит на складе подрядчика</div><div class="swho">У подрядчика нет складской системы и не будет</div></div>
+      <div class="stage blind"><div class="num">8</div><div class="stitle">Привезено на площадку</div><div class="swho">Знает только бригада, и только в переписке</div></div>
+      <div class="stage blind"><div class="num">9</div><div class="stitle">Смонтировано, но не включено</div><div class="swho">Знает только бригада</div></div>
+      <div class="stage"><div class="num">10</div><div class="stitle">Включено, работает в сети</div><div class="swho">Объект впервые появляется в сетевом учёте</div></div>
+      <div class="stage"><div class="num">11</div><div class="stitle">Документы закрыты, актив признан</div><div class="swho">Перевод в основные средства, начало амортизации</div></div>
+      <div class="stage"><div class="num">12</div><div class="stitle">Работа → демонтаж → возврат, продажа или списание</div><div class="swho">Вывод из эксплуатации</div></div>
+    </div>
+
+    <div class="rowlabel">2 · Кто эту стадию видит сегодня</div>
+    <div class="grid">
+      <div class="sys s-erp" style="grid-column:span 3">Финансовая система и закупки<small>SAP, 1С — деньги и договоры</small></div>
+      <div class="sys s-wms" style="grid-column:span 2">Складская система<small>SAP EWM, 1С — до границы склада</small></div>
+      <div class="sys s-none" style="grid-column:span 4">НИКТО<small>ни один стандарт, ни один класс систем</small></div>
+      <div class="sys s-oss">Сетевая система<small>TMF639, X.731</small></div>
+      <div class="sys s-fa">Учёт основных средств<small>IAS 16</small></div>
+      <div class="sys s-oss">Сеть и учёт<small>TMF639 + МСФО</small></div>
+    </div>
+
+    <div class="callouts">
+      <div style="grid-column:span 5"></div>
+      <div class="callout c-blind" style="grid-column:span 4">
+        СЛЕПАЯ ЗОНА. Складская система закончилась по своему назначению, сетевая ещё не началась по своему определению. Между ними не отвечает никто — и так у каждого оператора, независимо от зрелости его систем.
+      </div>
+      <div class="callout c-lag" style="grid-column:span 2">
+        ОТСТАВАНИЕ ДОКУМЕНТОВ. Оборудование месяцами несёт трафик, числясь в незавершённом строительстве. Амортизация занижена, прибыль завышена.
+      </div>
+      <div style="grid-column:span 1"></div>
+    </div>
+
+    <div class="rowlabel">3 · Что закрывает наша система</div>
+    <div class="grid">
+      <div class="ours o-out" style="grid-column:span 3">Не заходим<small>это планировщики: Infovista, Riaktr</small></div>
+      <div class="ours o-cov" style="grid-column:span 2">Читаем данные склада<small>не заменяем складскую систему</small></div>
+      <div class="ours o-core" style="grid-column:span 6">ЯДРО ПРОДУКТА — паспорт каждой серийной единицы<small>двойное местонахождение: где числится и где на самом деле · баланс по подрядчику · доказательство готовности из сети</small></div>
+      <div class="ours o-cov">Возврат в оборот<small>демонтаж</small></div>
+    </div>
+
+    <div class="loopbar">
+      <b>↩ Замыкание петли.</b> Снятое на стадии 12 оборудование возвращается во вход — к стадиям 1–3 — и <b>уменьшает объём новой закупки</b>. Поэтому продукт не линейный контроль, а замкнутый цикл: чем дольше он работает, тем больше данных для решения «не покупать».
+    </div>
+
+  </div></div>
+
+  <div class="legend">
+    <span><i class="chip" style="background:var(--erp)"></i> финансы и закупки</span>
+    <span><i class="chip" style="background:var(--wms)"></i> складская система</span>
+    <span><i class="chip" style="background:var(--none)"></i> не покрыто ничем</span>
+    <span><i class="chip" style="background:var(--oss)"></i> сетевая система</span>
+    <span><i class="chip" style="background:var(--fa)"></i> учёт основных средств</span>
+    <span><i class="chip" style="background:var(--ourscore)"></i> ядро нашего продукта</span>
+    <span><i class="chip" style="background:var(--ours)"></i> зона нашего покрытия</span>
+  </div>
+
+  <h2>На какой вопрос отвечаем на каждом участке</h2>
+  <table>
+    <thead><tr><th style="width:15%">Участок</th><th style="width:29%">Вопрос, на который отвечаем</th><th style="width:28%">Чем отвечаем</th><th style="width:28%">Что это даёт в деньгах</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="zone"><span class="dot" style="background:var(--wms)"></span>Стадии 4–5<br><small style="color:var(--muted)">склад оператора</small></td>
+        <td>Сколько из планируемой закупки покупать не надо, потому что это уже есть внутри компании?</td>
+        <td>Проверка наличия перед закупкой: заявка не проходит, пока не проверены свободный склад, материал у подрядчиков, излишки других проектов и ожидаемый демонтаж</td>
+        <td>Избежанная закупка и высвобождение замороженных денег. Самый крупный драйвер</td>
+      </tr>
+      <tr>
+        <td class="zone"><span class="dot" style="background:var(--none)"></span>Стадии 6–9<br><small style="color:var(--muted)">слепая зона</small></td>
+        <td>Где физически находится каждая единица, за которую заплачено, и что подрядчик реально сделал?</td>
+        <td>Два местонахождения у каждой единицы — учётное и фактическое. Баланс по подрядчику: выдано = установлено + осталось + возвращено + не найдено</td>
+        <td>Сокращение потерь у подрядчиков и корректная картина остатков для планирования</td>
+      </tr>
+      <tr>
+        <td class="zone"><span class="dot" style="background:var(--oss)"></span>Стадии 10–11<br><small style="color:var(--muted)">сеть и признание</small></td>
+        <td>Что уже работает в сети, но до сих пор не признано в основных средствах?</td>
+        <td>Машинная дата включения из сетевой системы как объективное доказательство готовности к использованию — независимое от документооборота подрядчика</td>
+        <td>Корректность капитализации по IAS 16. Закрытие аудиторской находки, снятие налоговой экспозиции</td>
+      </tr>
+      <tr>
+        <td class="zone"><span class="dot" style="background:var(--loop)"></span>Стадия 12<br><small style="color:var(--muted)">вывод из оборота</small></td>
+        <td>Что снято с площадок и может вернуться в оборот вместо новой покупки?</td>
+        <td>Учёт снятого оборудования и его состояния; возврат во вход цикла</td>
+        <td>В отрасли переиспользуется ~10%, у Telefónica — 43%. Разрыв и есть незанятое место</td>
+      </tr>
+      <tr>
+        <td class="zone">Весь путь</td>
+        <td>Сколько денег заморожено вне эксплуатации и на сколько дней?</td>
+        <td>Единый показатель: капитал под риском в днях</td>
+        <td>Величина, которую финансовый директор защищает на инвестиционном комитете одним умножением на стоимость капитала</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Границы честно</h2>
+  <div class="two">
+    <div class="panel yes">
+      <h3>На что система отвечает</h3>
+      <ul>
+        <li>Где физически находится каждая единица оборудования, за которую заплачено</li>
+        <li>Сколько из одобренного бюджета уже работает в сети, но не признано в основных средствах</li>
+        <li>Сколько из планируемой закупки покупать не надо</li>
+        <li>Что подрядчик заявил как установленное — против того, что подтверждает сеть и снимки</li>
+        <li>Насколько документы отстают от фактических работ, по каждому подрядчику отдельно</li>
+        <li>Что снято с площадок и может вернуться в оборот</li>
+        <li>Сколько денег заморожено вне эксплуатации и на сколько дней</li>
+      </ul>
+    </div>
+    <div class="panel no">
+      <h3>На что не отвечает и не будет</h3>
+      <ul>
+        <li>Какие площадки расширять и где отдача выше — это платформы планирования</li>
+        <li>Прогноз трафика и оттока абонентов</li>
+        <li>Сколько выручки принесла конкретная инвестиция в конкретную площадку</li>
+        <li>Сколько метров кабеля лежит на площадке, построенной до внедрения, — восстановить это назад невозможно ничем</li>
+        <li>Полный состав унаследованной пассивной инфраструктуры до даты внедрения</li>
+      </ul>
+    </div>
+  </div>
+  <p class="note">Отказ от левой части потока — сознательный. Планирование «куда инвестировать» требует чужих данных и чужой компетенции, а рынок таких платформ мал и консолидирован: Riaktr с клиентами Orange, Proximus и MTN продана целиком за 10,4 млн евро. Мы не конкурируем с планировщиками — мы даём им данные, которых у них нет.</p>
+
+  <footer>
+    Основания: ITU-T X.731 (состояния управляемого объекта) · TM Forum TMF639 Resource Inventory — инвентарь отражает «то, что уже предоставлено» · TMF634 Resource Catalog · IAS 16 «Основные средства» · отраслевые руководства по учёту незавершённого строительства, 2025–2026.<br>
+    Связанные документы: <b>02_Проектная_документация/07_Стратегические_развилки_и_сценарии.md</b> §4 · <b>01_Инвестиционное_мемо.md</b> §2.8 · <b>00_Управление/Понятия/Шов_между_стандартами.md</b> · <b>Жизненный_цикл_оборудования.md</b>
+  </footer>
+
+</div>
+</body>
+</html>
