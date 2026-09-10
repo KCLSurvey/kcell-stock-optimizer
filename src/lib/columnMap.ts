@@ -1,4 +1,5 @@
 import type ExcelJS from 'exceljs'
+import { ERROR_CODES, ProcessingError } from './errors'
 
 function normalizeHeader(s: unknown): string {
   return String(s ?? '')
@@ -28,7 +29,11 @@ export function requireColumn(map: Map<string, number>, name: string, context: s
   const key = normalizeHeader(name)
   const idx = map.get(key)
   if (!idx) {
-    throw new Error(`В файле «${context}» не найдена ожидаемая колонка «${name}». Проверьте заголовки файла.`)
+    throw new ProcessingError(
+      ERROR_CODES.COLUMN_NOT_FOUND,
+      `В файле «${context}» не найдена ожидаемая колонка «${name}». Проверьте заголовки файла.`,
+      { context: { file: context, expectedColumn: name, foundHeaders: Array.from(map.keys()) } },
+    )
   }
   return idx
 }

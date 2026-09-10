@@ -1,5 +1,6 @@
 import ExcelJS from 'exceljs'
 import type { FillRow, ProcessingResult, ReconciliationEntry, SurplusLot, TemplateColumnMap } from './types'
+import { checkpoint, type AbortState } from './cooperative'
 
 function materialCellValue(material: string): string | number {
   return /^\d+$/.test(material) && material.length <= 15 ? Number(material) : material
@@ -10,11 +11,13 @@ function writeTextCell(cell: ExcelJS.Cell, value: string) {
   cell.numFmt = '@'
 }
 
-function buildMaterialySheet(
+async function buildMaterialySheet(
   workbook: ExcelJS.Workbook,
   map: TemplateColumnMap,
   fillRows: FillRow[],
-): Map<string, number[]> {
+  onProgress?: (current: number, total: number) => void,
+  abortState?: AbortState,
+): Promise<Map<string, number[]>> {
   const sheet = workbook.addWorksheet(map.sheetName || 'Материалы')
   map.headers.forEach((h, i) => {
     sheet.getCell(1, i + 1).value = h
@@ -24,7 +27,9 @@ function buildMaterialySheet(
   // fillRows arrives already finalized by allocate.finalizeFillRows(): deficit-affected
   // rows first, then fully-closed rows (spec §7 "отдельно отфильтрованы проблемные позиции").
   const noByReqKey = new Map<string, number[]>()
-  fillRows.forEach((row) => {
+  for (const row of fillRows) {
+    await checkpoint(abortState, row.no, 500)
+    if (row.no % 500 === 0) onProgress?.(row.no, fillRows.length)
     const rowIdx = row.no + 1
     const list = noByReqKey.get(row.reqKey)
     if (list) list.push(row.no)
@@ -48,7 +53,8 @@ function buildMaterialySheet(
     writeTextCell(sheet.getCell(rowIdx, map.batchTo), row.batchTo)
     sheet.getCell(rowIdx, map.specialStockTo).value = row.specialStockTo
     sheet.getCell(rowIdx, map.sppTo).value = row.sppTo
-  })
+  }
+  onProgress?.(fillRows.length, fillRows.length)
 
   sheet.columns.forEach((col) => {
     col.width = 16
@@ -171,12 +177,17 @@ function buildSummarySheet(workbook: ExcelJS.Workbook, result: ProcessingResult)
   }
 }
 
-export async function buildOutputWorkbook(map: TemplateColumnMap, result: ProcessingResult): Promise<ArrayBuffer> {
+export async function buildOutputWorkbook(
+  map: TemplateColumnMap,
+  result: ProcessingResult,
+  onProgress?: (current: number, total: number) => void,
+  abortState?: AbortState,
+): Promise<ArrayBuffer> {
   const workbook = new ExcelJS.Workbook()
   workbook.creator = 'Kcell Stock Optimizer'
   workbook.created = new Date()
 
-  const noByReqKey = buildMaterialySheet(workbook, map, result.fillRows)
+  const noByReqKey = await buildMaterialySheet(workbook, map, result.fillRows, onProgress, abortState)
   buildControlSheet(workbook, result.reconciliation, noByReqKey)
   buildSurplusSheet(workbook, result.surplusLots)
   buildSummarySheet(workbook, result)

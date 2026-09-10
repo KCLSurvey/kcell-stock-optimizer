@@ -1,4 +1,5 @@
 import type { FillRow, Mb52Lot, ReconciliationEntry, SurplusLot, TargetRequirement } from './types'
+import { checkpoint, type AbortState } from './cooperative'
 
 function compareBatch(a: string, b: string): number {
   if (/^\d+$/.test(a) && /^\d+$/.test(b)) {
@@ -34,7 +35,12 @@ export interface AllocationResult {
  * requirements for the same material — processing order is a deliberate, documented
  * assumption (see spec v1.3, "Единица запуска").
  */
-export function allocate(lots: Mb52Lot[], requirements: TargetRequirement[]): AllocationResult {
+export async function allocate(
+  lots: Mb52Lot[],
+  requirements: TargetRequirement[],
+  onProgress?: (current: number, total: number) => void,
+  abortState?: AbortState,
+): Promise<AllocationResult> {
   const lotsByMaterial = new Map<string, Mb52Lot[]>()
   for (const lot of lots) {
     const arr = lotsByMaterial.get(lot.material)
@@ -45,7 +51,11 @@ export function allocate(lots: Mb52Lot[], requirements: TargetRequirement[]): Al
   const fillRows: Omit<FillRow, 'no'>[] = []
   const reconciliation: ReconciliationEntry[] = []
 
+  let i = 0
   for (const req of requirements) {
+    await checkpoint(abortState, i, 200)
+    if (i % 200 === 0 || i === requirements.length - 1) onProgress?.(i, requirements.length)
+    i++
     const reqKey = `${req.material}|${req.targetSpp}|${req.sourceRow}`
     const materialLots = lotsByMaterial.get(req.material) ?? []
 
@@ -128,6 +138,7 @@ export function allocate(lots: Mb52Lot[], requirements: TargetRequirement[]): Al
       comment,
     })
   }
+  onProgress?.(requirements.length, requirements.length)
 
   const surplusLots: SurplusLot[] = lots
     .filter((l) => l.remaining > 0)

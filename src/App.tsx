@@ -1,13 +1,21 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
+import { ErrorCard } from './components/ErrorCard'
 import { FileSlot } from './components/FileSlot'
+import { LogsPanel } from './components/LogsPanel'
+import { ProgressPanel } from './components/ProgressPanel'
+import type { SerializedError } from './lib/errors'
+import { ERROR_CATALOG, ERROR_CODES } from './lib/errors'
 import { fmtNum } from './lib/format'
-import type { ProcessingResult } from './lib/types'
+import { appendLog, createRun, finishRun } from './lib/logStore'
+import type { LogEntry, ProcessingResult, ProgressEvent, RunStatus } from './lib/types'
 import type { WorkerResponse } from './worker/process.worker'
 
 type Status = 'idle' | 'processing' | 'done' | 'error'
 
 const TEMPLATE_URL = `${import.meta.env.BASE_URL}template-zalivka.xlsx`
+const STALL_THRESHOLD_MS = 20_000
+const FORCE_TERMINATE_TIMEOUT_MS = 5_000
 
 function App() {
   const [mb52File, setMb52File] = useState<File | null>(null)
@@ -15,34 +23,105 @@ function App() {
   const [customTemplateFile, setCustomTemplateFile] = useState<File | null>(null)
 
   const [status, setStatus] = useState<Status>('idle')
-  const [progressMessage, setProgressMessage] = useState('')
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [progress, setProgress] = useState<ProgressEvent | null>(null)
+  const [startedAt, setStartedAt] = useState<number | null>(null)
+  const [now, setNow] = useState(Date.now())
+  const [stalled, setStalled] = useState(false)
+  const [error, setError] = useState<SerializedError | null>(null)
   const [result, setResult] = useState<ProcessingResult | null>(null)
   const [outputUrl, setOutputUrl] = useState<string | null>(null)
   const [showAllRows, setShowAllRows] = useState(false)
+  const [logsRefreshKey, setLogsRefreshKey] = useState(0)
 
   const workerRef = useRef<Worker | null>(null)
+  const runIdRef = useRef<string | null>(null)
+  const lastProgressAtRef = useRef<number>(Date.now())
+  const forceTerminateTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     return () => {
       workerRef.current?.terminate()
       if (outputUrl) URL.revokeObjectURL(outputUrl)
+      if (forceTerminateTimerRef.current) clearTimeout(forceTerminateTimerRef.current)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Ticking clock + stall watchdog: the worker itself can't reliably notice its own
+  // hang, so the main thread tracks "time since the last message we heard from it".
+  useEffect(() => {
+    if (status !== 'processing') return
+    const id = setInterval(() => {
+      setNow(Date.now())
+      if (Date.now() - lastProgressAtRef.current > STALL_THRESHOLD_MS) setStalled(true)
+    }, 1000)
+    return () => clearInterval(id)
+  }, [status])
+
   const canProcess = mb52File !== null && targetFile !== null && status !== 'processing'
+
+  async function persistLog(entry: Omit<LogEntry, 'id' | 'runId'>) {
+    if (runIdRef.current) await appendLog(runIdRef.current, entry)
+  }
+
+  async function finishWithError(err: SerializedError) {
+    setError(err)
+    setStatus('error')
+    workerRef.current?.terminate()
+    workerRef.current = null
+    if (forceTerminateTimerRef.current) {
+      clearTimeout(forceTerminateTimerRef.current)
+      forceTerminateTimerRef.current = null
+    }
+    await persistLog({ ts: new Date().toISOString(), level: 'error', stage: 'system', code: err.code, message: err.message, technical: err.technical, context: err.context })
+    if (runIdRef.current) {
+      const runStatus: RunStatus = err.code === ERROR_CODES.ABORTED_BY_USER || err.code === ERROR_CODES.STALLED_ABORTED ? 'aborted' : 'error'
+      await finishRun(runIdRef.current, runStatus, { errorCode: err.code, errorMessage: err.message })
+    }
+    setLogsRefreshKey((k) => k + 1)
+  }
+
+  function handleAbort() {
+    if (!workerRef.current) return
+    workerRef.current.postMessage({ type: 'abort' })
+    // Cooperative abort relies on the worker yielding between checkpoints — normally
+    // near-instant. If it truly never yields (a real deadlock), don't leave the user stuck.
+    forceTerminateTimerRef.current = setTimeout(() => {
+      if (workerRef.current) {
+        void finishWithError({
+          code: ERROR_CODES.STALLED_ABORTED,
+          message: 'Обработка не ответила на команду остановки и была прервана принудительно.',
+          explanation: ERROR_CATALOG[ERROR_CODES.STALLED_ABORTED],
+        })
+      }
+    }, FORCE_TERMINATE_TIMEOUT_MS)
+  }
 
   async function handleProcess() {
     if (!mb52File || !targetFile) return
     setStatus('processing')
-    setErrorMessage(null)
+    setError(null)
     setResult(null)
+    setProgress(null)
+    setStalled(false)
     if (outputUrl) {
       URL.revokeObjectURL(outputUrl)
       setOutputUrl(null)
     }
-    setProgressMessage('Чтение файлов…')
+    const start = Date.now()
+    setStartedAt(start)
+    setNow(start)
+    lastProgressAtRef.current = start
+
+    const runId = await createRun({ mb52FileName: mb52File.name, targetFileName: targetFile.name })
+    runIdRef.current = runId
+    await persistLog({
+      ts: new Date().toISOString(),
+      level: 'info',
+      stage: 'system',
+      message: `Запуск начат. MB52: «${mb52File.name}» (${fmtNum(mb52File.size)} байт), целевой файл: «${targetFile.name}» (${fmtNum(targetFile.size)} байт).`,
+    })
+    setLogsRefreshKey((k) => k + 1)
 
     try {
       const [mb52ArrayBuffer, targetArrayBuffer, templateArrayBuffer] = await Promise.all([
@@ -56,8 +135,14 @@ function App() {
 
       worker.onmessage = (e: MessageEvent<WorkerResponse>) => {
         const msg = e.data
+        lastProgressAtRef.current = Date.now()
+        if (stalled) setStalled(false)
+
         if (msg.type === 'progress') {
-          setProgressMessage(msg.event.message)
+          setProgress(msg.event)
+        } else if (msg.type === 'log') {
+          void persistLog(msg.entry)
+          if (msg.entry.level === 'error') setLogsRefreshKey((k) => k + 1)
         } else if (msg.type === 'success') {
           setResult(msg.result)
           const blob = new Blob([msg.outputArrayBuffer], {
@@ -67,18 +152,17 @@ function App() {
           setStatus('done')
           worker.terminate()
           workerRef.current = null
+          void finishRun(runId, 'success', { summary: msg.result.summary }).then(() => setLogsRefreshKey((k) => k + 1))
         } else if (msg.type === 'error') {
-          setErrorMessage(msg.message)
-          setStatus('error')
-          worker.terminate()
-          workerRef.current = null
+          void finishWithError(msg.error)
         }
       }
       worker.onerror = (e) => {
-        setErrorMessage(e.message || 'Неизвестная ошибка воркера.')
-        setStatus('error')
-        worker.terminate()
-        workerRef.current = null
+        void finishWithError({
+          code: ERROR_CODES.UNKNOWN,
+          message: `Внутренняя ошибка веб-воркера: ${e.message || 'нет описания'}.`,
+          explanation: ERROR_CATALOG[ERROR_CODES.UNKNOWN],
+        })
       }
 
       worker.postMessage({
@@ -86,8 +170,12 @@ function App() {
         payload: { mb52ArrayBuffer, targetArrayBuffer, templateArrayBuffer },
       })
     } catch (err) {
-      setErrorMessage(err instanceof Error ? err.message : String(err))
-      setStatus('error')
+      await finishWithError({
+        code: ERROR_CODES.UNKNOWN,
+        message: err instanceof Error ? err.message : String(err),
+        explanation: ERROR_CATALOG[ERROR_CODES.UNKNOWN],
+        technical: err instanceof Error ? err.stack : undefined,
+      })
     }
   }
 
@@ -99,6 +187,7 @@ function App() {
   const displayedOkRows = showAllRows ? okRows : okRows.slice(0, 100)
 
   const outputFileName = `zalivka_${new Date().toISOString().slice(0, 10)}.xlsx`
+  const elapsedMs = startedAt ? now - startedAt : 0
 
   return (
     <div className="app">
@@ -139,8 +228,11 @@ function App() {
             {status === 'processing' ? 'Обработка…' : 'Обработать'}
           </button>
         </div>
-        {status === 'processing' && <div className="progress-line">{progressMessage}</div>}
-        {status === 'error' && errorMessage && <div className="alert alert--error">{errorMessage}</div>}
+
+        {status === 'processing' && (
+          <ProgressPanel progress={progress} elapsedMs={elapsedMs} stalled={stalled} onAbort={handleAbort} />
+        )}
+        {status === 'error' && error && <ErrorCard error={error} />}
       </section>
 
       {result && (
@@ -264,6 +356,8 @@ function App() {
           )}
         </>
       )}
+
+      <LogsPanel refreshKey={logsRefreshKey} />
     </div>
   )
 }

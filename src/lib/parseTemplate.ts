@@ -1,21 +1,32 @@
 import ExcelJS from 'exceljs'
 import type { TemplateColumnMap } from './types'
 import { cellScalar, findAllColumns, readHeaderMap, requireColumn } from './columnMap'
+import { ERROR_CODES, ProcessingError } from './errors'
 
 export async function parseTemplate(buffer: ArrayBuffer): Promise<TemplateColumnMap> {
   const workbook = new ExcelJS.Workbook()
-  await workbook.xlsx.load(buffer)
+  try {
+    await workbook.xlsx.load(buffer)
+  } catch (err) {
+    throw new ProcessingError(ERROR_CODES.FILE_READ_FAILED, 'Шаблон заливки не удалось прочитать как Excel (.xlsx).', {
+      technical: err instanceof Error ? err.message : String(err),
+    })
+  }
 
   const worksheet =
     workbook.worksheets.find((ws) => ws.name.trim().toLowerCase() === 'материалы') ?? workbook.worksheets[0]
-  if (!worksheet) throw new Error('Шаблон заливочного файла не содержит листов.')
+  if (!worksheet) {
+    throw new ProcessingError(ERROR_CODES.SHEET_MISSING, 'Шаблон заливочного файла не содержит листов.')
+  }
 
   const headerMap = readHeaderMap(worksheet)
   const materialCols = findAllColumns(worksheet, 1, 'Материал')
   if (materialCols.length !== 2) {
-    throw new Error(
+    throw new ProcessingError(
+      ERROR_CODES.TEMPLATE_MATERIAL_COLUMNS,
       `В шаблоне заливки ожидались ровно 2 колонки «Материал» (источник и назначение), найдено ${materialCols.length}. ` +
         'Структура шаблона изменилась — проверьте файл.',
+      { context: { foundCount: materialCols.length } },
     )
   }
 

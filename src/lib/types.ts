@@ -115,3 +115,50 @@ export interface ProcessingInput {
   targetArrayBuffer: ArrayBuffer
   templateArrayBuffer: ArrayBuffer
 }
+
+export type ProgressStage =
+  | 'parsing_mb52'
+  | 'parsing_target'
+  | 'parsing_template'
+  | 'allocating'
+  | 'building_output'
+  | 'done'
+
+export interface ProgressEvent {
+  stage: ProgressStage
+  message: string
+  /** Rows/items processed so far within this stage, if known upfront. */
+  current?: number
+  /** Total rows/items expected in this stage, if known upfront. */
+  total?: number
+  /** 0-100, weighted across all stages — what the UI's single progress bar shows. */
+  overallPercent: number
+}
+
+export type LogLevel = 'info' | 'warn' | 'error'
+
+export interface LogEntry {
+  id: string
+  runId: string
+  ts: string
+  level: LogLevel
+  stage: ProgressStage | 'system'
+  code?: string
+  message: string
+  technical?: string
+  context?: Record<string, unknown>
+}
+
+export type RunStatus = 'running' | 'success' | 'error' | 'aborted'
+
+export interface RunRecord {
+  id: string
+  startedAt: string
+  finishedAt: string | null
+  status: RunStatus
+  mb52FileName: string | null
+  targetFileName: string | null
+  summary: ProcessingSummary | null
+  errorCode: string | null
+  errorMessage: string | null
+}

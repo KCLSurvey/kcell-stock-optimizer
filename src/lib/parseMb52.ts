@@ -2,6 +2,8 @@ import ExcelJS from 'exceljs'
 import { MAX_INPUT_ROWS, type Mb52Lot } from './types'
 import { normalizeBatch, normalizeMaterial, normalizeText, toPositiveQuantity, lotKey } from './normalize'
 import { cellScalar, readHeaderMap, requireColumn } from './columnMap'
+import { ERROR_CODES, ProcessingError } from './errors'
+import { checkpoint, type AbortState } from './cooperative'
 
 export interface ParseMb52Result {
   lots: Mb52Lot[]
@@ -9,13 +11,25 @@ export interface ParseMb52Result {
   rawRowCount: number
 }
 
-export async function parseMb52(buffer: ArrayBuffer): Promise<ParseMb52Result> {
+export async function parseMb52(
+  buffer: ArrayBuffer,
+  onProgress?: (current: number, total: number) => void,
+  abortState?: AbortState,
+): Promise<ParseMb52Result> {
   const workbook = new ExcelJS.Workbook()
-  await workbook.xlsx.load(buffer)
+  try {
+    await workbook.xlsx.load(buffer)
+  } catch (err) {
+    throw new ProcessingError(ERROR_CODES.FILE_READ_FAILED, 'Файл остатков MB52 не удалось прочитать как Excel (.xlsx).', {
+      technical: err instanceof Error ? err.message : String(err),
+    })
+  }
 
   const worksheet =
     workbook.worksheets.find((ws) => ws.name.trim().toLowerCase() === 'data') ?? workbook.worksheets[0]
-  if (!worksheet) throw new Error('Файл остатков MB52 не содержит листов с данными.')
+  if (!worksheet) {
+    throw new ProcessingError(ERROR_CODES.SHEET_MISSING, 'Файл остатков MB52 не содержит листов с данными.')
+  }
 
   const headerMap = readHeaderMap(worksheet)
   const colMaterial = requireColumn(headerMap, 'Материал', 'MB52')
@@ -33,16 +47,22 @@ export async function parseMb52(buffer: ArrayBuffer): Promise<ParseMb52Result> {
   let rowOrderCounter = 0
 
   const lastRow = worksheet.rowCount
+  const totalRows = Math.max(lastRow - 1, 0)
   for (let r = 2; r <= lastRow; r++) {
+    await checkpoint(abortState, r)
+    if (r % 500 === 0 || r === lastRow) onProgress?.(r - 1, totalRows)
+
     const materialRaw = cellScalar(worksheet, r, colMaterial)
     const material = normalizeMaterial(materialRaw)
     if (material === null) continue // real-data-extent detection: skip padding/blank rows
 
     rawRowCount++
     if (rawRowCount > MAX_INPUT_ROWS) {
-      throw new Error(
+      throw new ProcessingError(
+        ERROR_CODES.ROW_LIMIT_EXCEEDED,
         `Файл остатков MB52 содержит более ${MAX_INPUT_ROWS.toLocaleString('ru-RU')} заполненных строк. ` +
           `Разбейте файл на части не более ${MAX_INPUT_ROWS.toLocaleString('ru-RU')} строк и загрузите по очереди.`,
+        { context: { limit: MAX_INPUT_ROWS, atRow: r } },
       )
     }
 
@@ -89,6 +109,7 @@ export async function parseMb52(buffer: ArrayBuffer): Promise<ParseMb52Result> {
       })
     }
   }
+  onProgress?.(totalRows, totalRows)
 
   if (rawRowCount === 0) {
     warnings.push('В файле MB52 не найдено ни одной заполненной строки (по колонке «Материал»).')
