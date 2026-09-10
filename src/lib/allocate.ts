@@ -1,7 +1,7 @@
 import type { FillRow, Mb52Lot, ReconciliationEntry, SurplusLot, TargetRequirement } from './types'
 import { checkpoint, type AbortState } from './cooperative'
 
-function compareBatch(a: string, b: string): number {
+export function compareBatch(a: string, b: string): number {
   if (/^\d+$/.test(a) && /^\d+$/.test(b)) {
     const na = BigInt(a)
     const nb = BigInt(b)

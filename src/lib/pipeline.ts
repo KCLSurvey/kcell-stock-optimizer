@@ -136,6 +136,7 @@ export async function runPipeline(
   const outputArrayBuffer = await buildOutputWorkbook(
     template,
     result,
+    mb52.lots,
     (current, total) => report(callbacks, 'building_output', `Запись файла: строка ${current} из ${total}…`, current, total),
     abortState,
   )
