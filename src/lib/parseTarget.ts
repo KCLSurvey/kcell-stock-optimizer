@@ -12,12 +12,14 @@ export interface ParseTargetResult {
   projectColumns: string[]
 }
 
-// Known attribute columns (whitespace/case-insensitive). Everything else in the header
-// row is treated as a target СПП-element column — this is what makes the "wide" target
-// file format self-describing instead of relying on a fixed column order.
+// Known attribute columns (whitespace/case-insensitive). This list is a first-pass hint,
+// not the source of truth — a header that isn't here is NOT assumed to be a СПП column
+// (that assumption once caused an unrecognized "Старый М" column to be summed as if it
+// were transfer quantities). See looksLikeSppCode() below for the actual classification.
 const KNOWN_ATTRIBUTE_HEADERS = new Set([
   'материал',
   'старый материал',
+  'старый м',
   'код продукта',
   'название материала',
   'еи',
@@ -29,6 +31,21 @@ function normalizeHeaderKey(s: unknown): string {
     .replace(/\s+/g, ' ')
     .trim()
     .toLowerCase()
+}
+
+/**
+ * A СПП-element code (e.g. "B2026.425.EXT", "B9999.001.UND", "O2026.423/001") is Latin
+ * letters/digits/punctuation with no spaces and no Cyrillic — structurally nothing like a
+ * Russian attribute-column name ("Материал", "Старый М", "Код продукта", …), all of which
+ * are Cyrillic words. New unseen СПП code formats still pass this as long as they follow
+ * that same shape; anything that matches neither this nor the known attribute names is
+ * left unclassified and reported as a warning rather than silently treated as a СПП column.
+ */
+function looksLikeSppCode(header: string): boolean {
+  if (/[А-Яа-яЁё]/.test(header)) return false
+  if (/\s/.test(header)) return false
+  if (!/\d/.test(header)) return false
+  return true
 }
 
 export async function parseTarget(
@@ -65,12 +82,17 @@ export async function parseTarget(
   const headerRow = worksheet.getRow(1)
   const colCount = Math.max(worksheet.columnCount, headerRow.cellCount)
   const projectColumns: { col: number; name: string }[] = []
+  const unrecognizedColumns: string[] = []
   for (let c = 1; c <= colCount; c++) {
     const raw = cellScalar(worksheet, 1, c)
     const name = normalizeText(raw)
     if (!name) continue
     if (KNOWN_ATTRIBUTE_HEADERS.has(normalizeHeaderKey(name))) continue
-    projectColumns.push({ col: c, name })
+    if (looksLikeSppCode(name)) {
+      projectColumns.push({ col: c, name })
+    } else {
+      unrecognizedColumns.push(name)
+    }
   }
   if (projectColumns.length === 0) {
     throw new ProcessingError(
@@ -127,6 +149,13 @@ export async function parseTarget(
     warnings.push(
       `Колонка «в САП пусто» не пуста в ${emptyInSapHits.length} строках (например: ${sample}) — ` +
         `эти значения игнорируются программой. Проверьте, не должны ли они быть отдельным целевым СПП.`,
+    )
+  }
+  if (unrecognizedColumns.length > 0) {
+    warnings.push(
+      `Не опознаны как атрибут материала и не похожи на код СПП (формат вроде «B2026.425.EXT»): ` +
+        `${unrecognizedColumns.map((n) => `«${n}»`).join(', ')}. Данные этих колонок ПРОИГНОРИРОВАНЫ — они не вошли ` +
+        `ни в требуемое количество, ни в заливку. Если это на самом деле целевые СПП в другом формате, сообщите точный вид кода.`,
     )
   }
 
