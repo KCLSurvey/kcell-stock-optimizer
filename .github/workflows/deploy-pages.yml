@@ -26,14 +26,20 @@ jobs:
           node-version: 20
       - run: npm ci
       - run: npm run build
-        env:
-          GH_PAGES: 'true'
       - uses: actions/configure-pages@v5
         with:
           enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+      # The build is one self-contained dist/index.html (see vite.config.ts) — also
+      # published as a plain workflow artifact so it can be downloaded from the Actions
+      # run and handed directly to colleagues whose network blocks *.github.io, no
+      # hosting needed at all: they just double-click the file.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kcell-stock-optimizer-offline
+          path: dist/index.html
 
   deploy:
     needs: build

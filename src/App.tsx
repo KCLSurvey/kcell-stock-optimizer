@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
+import templateDataUrl from './assets/template-zalivka.xlsx?inline'
 import { ErrorCard } from './components/ErrorCard'
 import { FileSlot } from './components/FileSlot'
 import { ProgressPanel } from './components/ProgressPanel'
@@ -7,11 +8,11 @@ import type { SerializedError } from './lib/errors'
 import { ERROR_CATALOG, ERROR_CODES } from './lib/errors'
 import { fmtNum } from './lib/format'
 import type { ProcessingResult, ProgressEvent } from './lib/types'
+import ProcessWorker from './worker/process.worker.ts?worker&inline'
 import type { WorkerResponse } from './worker/process.worker'
 
 type Status = 'idle' | 'processing' | 'done' | 'error'
 
-const TEMPLATE_URL = `${import.meta.env.BASE_URL}template-zalivka.xlsx`
 const STALL_THRESHOLD_MS = 20_000
 const FORCE_TERMINATE_TIMEOUT_MS = 5_000
 
@@ -27,6 +28,16 @@ function triggerDownload(url: string, fileName: string) {
   document.body.appendChild(a)
   a.click()
   a.remove()
+}
+
+/** The bundled template ships as a base64 data: URL (see the `?inline` import above) —
+ *  decoded locally rather than fetched, so it's available even opened via file://. */
+function dataUrlToArrayBuffer(dataUrl: string): ArrayBuffer {
+  const base64 = dataUrl.slice(dataUrl.indexOf(',') + 1)
+  const binary = atob(base64)
+  const bytes = new Uint8Array(binary.length)
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i)
+  return bytes.buffer
 }
 
 function App() {
@@ -117,10 +128,10 @@ function App() {
       const [mb52ArrayBuffer, targetArrayBuffer, templateArrayBuffer] = await Promise.all([
         mb52File.arrayBuffer(),
         targetFile.arrayBuffer(),
-        customTemplateFile ? customTemplateFile.arrayBuffer() : fetch(TEMPLATE_URL).then((r) => r.arrayBuffer()),
+        customTemplateFile ? customTemplateFile.arrayBuffer() : Promise.resolve(dataUrlToArrayBuffer(templateDataUrl)),
       ])
 
-      const worker = new Worker(new URL('./worker/process.worker.ts', import.meta.url), { type: 'module' })
+      const worker = new ProcessWorker()
       workerRef.current = worker
 
       worker.onmessage = (e: MessageEvent<WorkerResponse>) => {
@@ -211,7 +222,7 @@ function App() {
           />
         </div>
         <div className="actions-row">
-          <a className="btn btn--ghost" href={TEMPLATE_URL} download="zalivka_template.xlsx">
+          <a className="btn btn--ghost" href={templateDataUrl} download="zalivka_template.xlsx">
             Скачать пустой шаблон заливки
           </a>
           <button className="btn btn--primary" disabled={!canProcess} onClick={handleProcess}>
