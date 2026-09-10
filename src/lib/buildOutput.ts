@@ -1,6 +1,6 @@
 import ExcelJS from 'exceljs'
 import { compareBatch } from './allocate'
-import type { FillRow, Mb52Lot, ProcessingResult, ReconciliationEntry, SurplusLot, TemplateColumnMap } from './types'
+import type { FillRow, Mb52Lot, ProcessingResult, ReconciliationEntry, RunLogEntry, SurplusLot, TemplateColumnMap } from './types'
 import { checkpoint, type AbortState } from './cooperative'
 
 function materialCellValue(material: string): string | number {
@@ -329,6 +329,54 @@ function buildSummarySheet(workbook: ExcelJS.Workbook, result: ProcessingResult)
   }
 }
 
+const LEVEL_LABEL: Record<RunLogEntry['level'], string> = {
+  info: 'Инфо',
+  warn: 'Предупреждение',
+  error: 'Ошибка',
+}
+
+/**
+ * The run's full log trail, embedded as a sheet in the file the user already downloads —
+ * this is the only place the log lives; nothing is persisted in the browser or anywhere
+ * server-side, so a diagnostic report is just "send me this file" rather than a separate export.
+ */
+function buildLogSheet(workbook: ExcelJS.Workbook, logEntries: RunLogEntry[]) {
+  const sheet = workbook.addWorksheet('Лог обработки')
+  const headers = ['Время', 'Уровень', 'Этап', 'Код', 'Сообщение', 'Технические детали']
+  headers.forEach((h, i) => {
+    sheet.getCell(1, i + 1).value = h
+  })
+  sheet.getRow(1).font = { bold: true }
+
+  logEntries.forEach((entry, i) => {
+    const r = i + 2
+    sheet.getCell(r, 1).value = new Date(entry.ts).toLocaleString('ru-RU')
+    sheet.getCell(r, 2).value = LEVEL_LABEL[entry.level]
+    sheet.getCell(r, 3).value = entry.stage
+    sheet.getCell(r, 4).value = entry.code ?? ''
+    sheet.getCell(r, 5).value = entry.message
+    sheet.getCell(r, 6).value = [entry.technical, entry.context ? JSON.stringify(entry.context) : null]
+      .filter(Boolean)
+      .join(' ')
+    if (entry.level === 'error') {
+      for (let c = 1; c <= headers.length; c++) {
+        sheet.getCell(r, c).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFDE2E2' } }
+      }
+    } else if (entry.level === 'warn') {
+      for (let c = 1; c <= headers.length; c++) {
+        sheet.getCell(r, c).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFFF6D9' } }
+      }
+    }
+  })
+
+  sheet.getColumn(1).width = 20
+  sheet.getColumn(2).width = 16
+  sheet.getColumn(3).width = 16
+  sheet.getColumn(4).width = 16
+  sheet.getColumn(5).width = 60
+  sheet.getColumn(6).width = 40
+}
+
 export async function buildOutputWorkbook(
   map: TemplateColumnMap,
   result: ProcessingResult,
@@ -350,6 +398,7 @@ export async function buildOutputWorkbook(
   buildMaterialControlSheet(workbook, lots, result.fillRows, map, mb52Ref, materialyLastRow)
 
   buildSummarySheet(workbook, result)
+  buildLogSheet(workbook, result.logEntries)
 
   const buffer = await workbook.xlsx.writeBuffer()
   // writeBuffer() can return a Node-style Buffer/Uint8Array view rather than a

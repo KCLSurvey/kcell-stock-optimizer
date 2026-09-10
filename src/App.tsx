@@ -2,13 +2,11 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 import { ErrorCard } from './components/ErrorCard'
 import { FileSlot } from './components/FileSlot'
-import { LogsPanel } from './components/LogsPanel'
 import { ProgressPanel } from './components/ProgressPanel'
 import type { SerializedError } from './lib/errors'
 import { ERROR_CATALOG, ERROR_CODES } from './lib/errors'
 import { fmtNum } from './lib/format'
-import { appendLog, createRun, finishRun } from './lib/logStore'
-import type { LogEntry, ProcessingResult, ProgressEvent, RunStatus } from './lib/types'
+import type { ProcessingResult, ProgressEvent } from './lib/types'
 import type { WorkerResponse } from './worker/process.worker'
 
 type Status = 'idle' | 'processing' | 'done' | 'error'
@@ -16,6 +14,20 @@ type Status = 'idle' | 'processing' | 'done' | 'error'
 const TEMPLATE_URL = `${import.meta.env.BASE_URL}template-zalivka.xlsx`
 const STALL_THRESHOLD_MS = 20_000
 const FORCE_TERMINATE_TIMEOUT_MS = 5_000
+
+function buildOutputFileName(): string {
+  return `zalivka_${new Date().toISOString().slice(0, 10)}.xlsx`
+}
+
+/** Saves the blob straight to the browser's downloads via a throwaway link — no tab, no page state to leave behind. */
+function triggerDownload(url: string, fileName: string) {
+  const a = document.createElement('a')
+  a.href = url
+  a.download = fileName
+  document.body.appendChild(a)
+  a.click()
+  a.remove()
+}
 
 function App() {
   const [mb52File, setMb52File] = useState<File | null>(null)
@@ -31,10 +43,8 @@ function App() {
   const [result, setResult] = useState<ProcessingResult | null>(null)
   const [outputUrl, setOutputUrl] = useState<string | null>(null)
   const [showAllRows, setShowAllRows] = useState(false)
-  const [logsRefreshKey, setLogsRefreshKey] = useState(0)
 
   const workerRef = useRef<Worker | null>(null)
-  const runIdRef = useRef<string | null>(null)
   const lastProgressAtRef = useRef<number>(Date.now())
   const forceTerminateTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -60,11 +70,7 @@ function App() {
 
   const canProcess = mb52File !== null && targetFile !== null && status !== 'processing'
 
-  async function persistLog(entry: Omit<LogEntry, 'id' | 'runId'>) {
-    if (runIdRef.current) await appendLog(runIdRef.current, entry)
-  }
-
-  async function finishWithError(err: SerializedError) {
+  function finishWithError(err: SerializedError) {
     setError(err)
     setStatus('error')
     workerRef.current?.terminate()
@@ -73,12 +79,6 @@ function App() {
       clearTimeout(forceTerminateTimerRef.current)
       forceTerminateTimerRef.current = null
     }
-    await persistLog({ ts: new Date().toISOString(), level: 'error', stage: 'system', code: err.code, message: err.message, technical: err.technical, context: err.context })
-    if (runIdRef.current) {
-      const runStatus: RunStatus = err.code === ERROR_CODES.ABORTED_BY_USER || err.code === ERROR_CODES.STALLED_ABORTED ? 'aborted' : 'error'
-      await finishRun(runIdRef.current, runStatus, { errorCode: err.code, errorMessage: err.message })
-    }
-    setLogsRefreshKey((k) => k + 1)
   }
 
   function handleAbort() {
@@ -88,7 +88,7 @@ function App() {
     // near-instant. If it truly never yields (a real deadlock), don't leave the user stuck.
     forceTerminateTimerRef.current = setTimeout(() => {
       if (workerRef.current) {
-        void finishWithError({
+        finishWithError({
           code: ERROR_CODES.STALLED_ABORTED,
           message: 'Обработка не ответила на команду остановки и была прервана принудительно.',
           explanation: ERROR_CATALOG[ERROR_CODES.STALLED_ABORTED],
@@ -113,16 +113,6 @@ function App() {
     setNow(start)
     lastProgressAtRef.current = start
 
-    const runId = await createRun({ mb52FileName: mb52File.name, targetFileName: targetFile.name })
-    runIdRef.current = runId
-    await persistLog({
-      ts: new Date().toISOString(),
-      level: 'info',
-      stage: 'system',
-      message: `Запуск начат. MB52: «${mb52File.name}» (${fmtNum(mb52File.size)} байт), целевой файл: «${targetFile.name}» (${fmtNum(targetFile.size)} байт).`,
-    })
-    setLogsRefreshKey((k) => k + 1)
-
     try {
       const [mb52ArrayBuffer, targetArrayBuffer, templateArrayBuffer] = await Promise.all([
         mb52File.arrayBuffer(),
@@ -140,25 +130,25 @@ function App() {
 
         if (msg.type === 'progress') {
           setProgress(msg.event)
-        } else if (msg.type === 'log') {
-          void persistLog(msg.entry)
-          if (msg.entry.level === 'error') setLogsRefreshKey((k) => k + 1)
         } else if (msg.type === 'success') {
           setResult(msg.result)
           const blob = new Blob([msg.outputArrayBuffer], {
             type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
           })
-          setOutputUrl(URL.createObjectURL(blob))
+          const url = URL.createObjectURL(blob)
+          setOutputUrl(url)
           setStatus('done')
           worker.terminate()
           workerRef.current = null
-          void finishRun(runId, 'success', { summary: msg.result.summary }).then(() => setLogsRefreshKey((k) => k + 1))
+          // Save straight to the browser's downloads — nothing stays open on the site,
+          // and the run's log trail travels inside this same file (see "Лог обработки" sheet).
+          triggerDownload(url, buildOutputFileName())
         } else if (msg.type === 'error') {
-          void finishWithError(msg.error)
+          finishWithError(msg.error)
         }
       }
       worker.onerror = (e) => {
-        void finishWithError({
+        finishWithError({
           code: ERROR_CODES.UNKNOWN,
           message: `Внутренняя ошибка веб-воркера: ${e.message || 'нет описания'}.`,
           explanation: ERROR_CATALOG[ERROR_CODES.UNKNOWN],
@@ -170,7 +160,7 @@ function App() {
         payload: { mb52ArrayBuffer, targetArrayBuffer, templateArrayBuffer },
       })
     } catch (err) {
-      await finishWithError({
+      finishWithError({
         code: ERROR_CODES.UNKNOWN,
         message: err instanceof Error ? err.message : String(err),
         explanation: ERROR_CATALOG[ERROR_CODES.UNKNOWN],
@@ -186,7 +176,7 @@ function App() {
   const okRows = useMemo(() => result?.reconciliation.filter((r) => r.status === 'ok') ?? [], [result])
   const displayedOkRows = showAllRows ? okRows : okRows.slice(0, 100)
 
-  const outputFileName = `zalivka_${new Date().toISOString().slice(0, 10)}.xlsx`
+  const outputFileName = buildOutputFileName()
   const elapsedMs = startedAt ? now - startedAt : 0
 
   return (
@@ -265,8 +255,12 @@ function App() {
             {outputUrl && (
               <div className="actions-row">
                 <a className="btn btn--primary" href={outputUrl} download={outputFileName}>
-                  Скачать итоговый файл ({outputFileName})
+                  Скачать повторно ({outputFileName})
                 </a>
+                <span className="hint-text">
+                  Файл уже сохранён в папку загрузок браузера. Журнал обработки — на листе «Лог обработки» внутри него;
+                  нигде на сайте ничего не хранится.
+                </span>
               </div>
             )}
 
@@ -356,8 +350,6 @@ function App() {
           )}
         </>
       )}
-
-      <LogsPanel refreshKey={logsRefreshKey} />
     </div>
   )
 }

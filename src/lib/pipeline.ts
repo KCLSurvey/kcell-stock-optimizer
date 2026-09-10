@@ -4,7 +4,7 @@ import type { AbortState } from './cooperative'
 import { parseMb52 } from './parseMb52'
 import { parseTarget } from './parseTarget'
 import { parseTemplate } from './parseTemplate'
-import type { LogEntry, ProcessingInput, ProcessingResult, ProgressEvent, ProgressStage } from './types'
+import type { ProcessingInput, ProcessingResult, ProgressEvent, ProgressStage, RunLogEntry } from './types'
 
 // How much of the single overall progress bar each stage owns. Must sum to 100.
 const STAGE_WEIGHTS: Record<ProgressStage, number> = {
@@ -30,8 +30,6 @@ export type { ProgressEvent, ProgressStage }
 
 export interface PipelineCallbacks {
   onProgress?: (e: ProgressEvent) => void
-  /** Coarse milestones only (stage start/finish, warnings) — this is what gets persisted to the log store, unlike the frequent onProgress ticks. */
-  onLog?: (entry: Omit<LogEntry, 'id' | 'runId'>) => void
 }
 
 export interface PipelineOutput {
@@ -47,8 +45,11 @@ function report(cb: PipelineCallbacks | undefined, stage: ProgressStage, message
   cb?.onProgress?.({ stage, message, current, total, overallPercent })
 }
 
-function log(cb: PipelineCallbacks | undefined, entry: Omit<LogEntry, 'id' | 'runId' | 'ts'>) {
-  cb?.onLog?.({ ...entry, ts: new Date().toISOString() })
+// Coarse milestones (stage start/finish, warnings) — collected here and embedded as a
+// sheet in the output file itself, rather than kept anywhere else. Nothing persists this
+// in the browser or server-side; it travels only inside the one file the user downloads.
+function log(collected: RunLogEntry[], entry: Omit<RunLogEntry, 'ts'>) {
+  collected.push({ ...entry, ts: new Date().toISOString() })
 }
 
 export async function runPipeline(
@@ -56,39 +57,41 @@ export async function runPipeline(
   callbacks?: PipelineCallbacks,
   abortState?: AbortState,
 ): Promise<PipelineOutput> {
+  const logEntries: RunLogEntry[] = []
+
   report(callbacks, 'parsing_mb52', 'Разбор файла остатков MB52…', 0, undefined)
-  log(callbacks, { level: 'info', stage: 'parsing_mb52', message: 'Начат разбор файла остатков MB52.' })
+  log(logEntries, { level: 'info', stage: 'parsing_mb52', message: 'Начат разбор файла остатков MB52.' })
   const mb52 = await parseMb52(
     input.mb52ArrayBuffer,
     (current, total) => report(callbacks, 'parsing_mb52', `Разбор MB52: строка ${current} из ${total}…`, current, total),
     abortState,
   )
-  log(callbacks, {
+  log(logEntries, {
     level: 'info',
     stage: 'parsing_mb52',
     message: `MB52 разобран: ${mb52.rawRowCount} заполненных строк → ${mb52.lots.length} партий (лотов).`,
     context: { rawRowCount: mb52.rawRowCount, lotCount: mb52.lots.length, warnings: mb52.warnings.length },
   })
-  mb52.warnings.forEach((w) => log(callbacks, { level: 'warn', stage: 'parsing_mb52', message: w }))
+  mb52.warnings.forEach((w) => log(logEntries, { level: 'warn', stage: 'parsing_mb52', message: w }))
 
   report(callbacks, 'parsing_target', 'Разбор целевого файла…', 0, undefined)
-  log(callbacks, { level: 'info', stage: 'parsing_target', message: 'Начат разбор целевого файла.' })
+  log(logEntries, { level: 'info', stage: 'parsing_target', message: 'Начат разбор целевого файла.' })
   const target = await parseTarget(
     input.targetArrayBuffer,
     (current, total) => report(callbacks, 'parsing_target', `Разбор целевого файла: строка ${current} из ${total}…`, current, total),
     abortState,
   )
-  log(callbacks, {
+  log(logEntries, {
     level: 'info',
     stage: 'parsing_target',
     message: `Целевой файл разобран: ${target.rawRowCount} строк материалов → ${target.requirements.length} потребностей (материал × СПП).`,
     context: { rawRowCount: target.rawRowCount, requirementCount: target.requirements.length, projectColumns: target.projectColumns },
   })
-  target.warnings.forEach((w) => log(callbacks, { level: 'warn', stage: 'parsing_target', message: w }))
+  target.warnings.forEach((w) => log(logEntries, { level: 'warn', stage: 'parsing_target', message: w }))
 
   report(callbacks, 'parsing_template', 'Разбор шаблона заливки…', 0, undefined)
   const template = await parseTemplate(input.templateArrayBuffer)
-  log(callbacks, { level: 'info', stage: 'parsing_template', message: `Шаблон заливки разобран (лист «${template.sheetName}»).` })
+  log(logEntries, { level: 'info', stage: 'parsing_template', message: `Шаблон заливки разобран (лист «${template.sheetName}»).` })
 
   report(callbacks, 'allocating', 'Распределение партий по потребностям…', 0, target.requirements.length)
   const { fillRows: rawFillRows, reconciliation, surplusLots } = await allocate(
@@ -99,7 +102,7 @@ export async function runPipeline(
   )
   const fillRows = finalizeFillRows(rawFillRows)
   const deficitCountPreview = reconciliation.filter((r) => r.status === 'deficit').length
-  log(callbacks, {
+  log(logEntries, {
     level: deficitCountPreview > 0 ? 'warn' : 'info',
     stage: 'allocating',
     message: `Распределение завершено: ${fillRows.length} строк заливки, ${deficitCountPreview} позиций с дефицитом, ${surplusLots.length} неиспользованных партий.`,
@@ -130,9 +133,14 @@ export async function runPipeline(
       generatedAt: new Date().toISOString(),
     },
     warnings: [...mb52.warnings, ...target.warnings],
+    logEntries,
   }
 
   report(callbacks, 'building_output', 'Формирование итогового файла…', 0, fillRows.length)
+  // Logged before the write, not after — this array is embedded as a sheet inside the file
+  // itself (see buildLogSheet), so a milestone can only be captured up to the moment the
+  // file's own bytes are produced, not the fact of its own completion.
+  log(logEntries, { level: 'info', stage: 'building_output', message: 'Начато формирование итогового файла (лист «Лог обработки» — этот).' })
   const outputArrayBuffer = await buildOutputWorkbook(
     template,
     result,
@@ -140,7 +148,6 @@ export async function runPipeline(
     (current, total) => report(callbacks, 'building_output', `Запись файла: строка ${current} из ${total}…`, current, total),
     abortState,
   )
-  log(callbacks, { level: 'info', stage: 'building_output', message: 'Итоговый файл сформирован.' })
 
   report(callbacks, 'done', 'Готово.')
   return { result, outputArrayBuffer }

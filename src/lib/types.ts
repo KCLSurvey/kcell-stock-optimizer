@@ -108,6 +108,10 @@ export interface ProcessingResult {
   surplusLots: SurplusLot[]
   summary: ProcessingSummary
   warnings: string[]
+  /** Everything logged during this run — embedded as a sheet in the output workbook itself
+   *  rather than kept anywhere else, so no processing history persists in the browser or
+   *  anywhere server-side once the tab closes. */
+  logEntries: RunLogEntry[]
 }
 
 export interface ProcessingInput {
@@ -137,9 +141,7 @@ export interface ProgressEvent {
 
 export type LogLevel = 'info' | 'warn' | 'error'
 
-export interface LogEntry {
-  id: string
-  runId: string
+export interface RunLogEntry {
   ts: string
   level: LogLevel
   stage: ProgressStage | 'system'
@@ -147,18 +149,4 @@ export interface LogEntry {
   message: string
   technical?: string
   context?: Record<string, unknown>
-}
-
-export type RunStatus = 'running' | 'success' | 'error' | 'aborted'
-
-export interface RunRecord {
-  id: string
-  startedAt: string
-  finishedAt: string | null
-  status: RunStatus
-  mb52FileName: string | null
-  targetFileName: string | null
-  summary: ProcessingSummary | null
-  errorCode: string | null
-  errorMessage: string | null
 }
